@@ -42,9 +42,7 @@ namespace Powykonawcza
                 DrawPoint(x,y);
                   
             }
-
-           
-
+             
         }
 
         private void DrawPoint(double x, double y)

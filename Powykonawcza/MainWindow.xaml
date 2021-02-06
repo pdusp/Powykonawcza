@@ -5,37 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Powykonawcza"
         mc:Ignorable="d"
-        Title="MainWindow" Height="533.334" Width="1200">
-    <Grid ShowGridLines="True" Margin="0,0,0,0" >
+        Title="MainWindow" Height="533.334" Width="1200" PreviewKeyDown="Window_PreviewKeyDown">
+    <Grid ShowGridLines="True" >
+
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="7*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
 
-        <Menu DockPanel.Dock="Top">
+        <Menu Grid.RowSpan="2">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" />
-                <MenuItem Header="_Open" />
+
+                <MenuItem Header="_Open" Click="MenuItem_ClickOpen"  />
                 <MenuItem Header="_Save" />
                 <Separator />
                 <MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
             </MenuItem>
+
         </Menu>
+
+        <RichTextBox x:Name="richTextBox1" Margin="10,62,10,10">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
 
 
         <Button Content="Import" Margin="10,22,10,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox Margin="10,62,12,10" TextWrapping="Wrap"   Name="RawDate"                 
-         AcceptsReturn="True"
-         VerticalScrollBarVisibility="Visible"  
-          >
-            <TextBox.Text>
-                1  5573991.24  6550050.70  237.28 &#x0a;
-            </TextBox.Text>
-            
-        </TextBox>
 
-        <DataGrid Grid.Column="1" Margin="10,62,10,10" Name="dg1"  CanUserSortColumns="False"  />
+        <DataGrid Grid.Column="1" Margin="23,62,10,10" Name="dg1"  CanUserSortColumns="False" Grid.RowSpan="2"  />
         <Button Content="Draw" Grid.Column="1" HorizontalAlignment="Left" Margin="23,22,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
     </Grid>
 </Window>
