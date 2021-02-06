@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Powykonawcza"
         mc:Ignorable="d"
-        Title="MainWindow" Height="533.334" Width="1200" PreviewKeyDown="Window_PreviewKeyDown">
+    
+    ResizeMode="CanResize"
+        Title="MainWindow" Height="533.334" Width="1200" PreviewKeyDown="Window_PreviewKeyDown"
+        >
+    
+    
+    
     <Grid ShowGridLines="True" >
 
 
@@ -15,17 +21,20 @@
 
         </Grid.ColumnDefinitions>
 
+      
         <Menu Grid.RowSpan="2">
-            <MenuItem Header="_File">
+            <MenuItem Header="_Import danych">
 
-                <MenuItem Header="_Open" Click="MenuItem_ClickOpen"  />
-                <MenuItem Header="_Save" />
+                <MenuItem Header="_Otwórz plik Ctrl+O" Click="MenuItem_ClickOpen"  />
+                <MenuItem Header="_Szablony importu" />
                 <Separator />
-                <MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
+                <MenuItem Header="_Zamknij" Click="MenuItem_ClickExit" />
             </MenuItem>
 
         </Menu>
 
+
+        <Label Content="Podgląd pliku" RenderTransformOrigin="5,10" Margin="10,42,10,10" Name="podglad" />
         <RichTextBox x:Name="richTextBox1" Margin="10,62,10,10">
             <FlowDocument>
                 <Paragraph>
