@@ -52,20 +52,15 @@ namespace Powykonawcza
         {
             //RawDate
             //StringCollection lines = Import.GetLinesCollectionFromTextBox(richTextBox1);
-
             //StringCollection lines = 
             TextRange textRange = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
             string[] rtbLines = textRange.Text.Split('\n');
-
-
+            //
             foreach (var line in rtbLines)
             {
                 Console.WriteLine(line);
             }
-
-
-
-
+            //
             lg = new List<GeoPoint>();
             foreach (string line in rtbLines)
             {
@@ -73,8 +68,8 @@ namespace Powykonawcza
                 //regex example: @"^\s*(\d+)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)(\s+.*)?$";
                 const string FilterFilter = @"^\s*(\d+)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)(\s+.*)?$";
                 Regex f = new Regex(FilterFilter, RegexOptions.Multiline | RegexOptions.Compiled);
-                string id = "";
-                decimal x = 0, y = 0, z = 0;
+                string pkt = "";
+                decimal x = 0, y = 0, h = 0;
                 string typ = "", warning = "";
                 //id = Int32.Parse(f[1]);
                 // 
@@ -90,7 +85,7 @@ namespace Powykonawcza
                     { warning += "Błąd id"; }
                     else
                     {
-                        id = result[1];
+                        pkt = result[1];
                     }
                     //
                     success = Decimal.TryParse(result[2].Replace('.', ','), out vald);
@@ -111,10 +106,10 @@ namespace Powykonawcza
                     //
                     success = Decimal.TryParse(result[4].Replace('.', ','), out vald);
                     if (!success)
-                    { warning += "Błąd z"; }
+                    { warning += "Błąd h"; }
                     else
                     {
-                        z = vald;
+                        h = vald;
                     }
                     //
                     typ = result[5];
@@ -125,7 +120,7 @@ namespace Powykonawcza
                     warning = "Błędne dane";
                 }
 
-                GeoPoint p = new GeoPoint { id = id, x = x, y = y, z = z, typ = typ, warning = warning };
+                GeoPoint p = new GeoPoint { pkt = pkt, x = x, y = y, h = h, typ = typ, warning = warning };
 
                 lg.Add(p);
             }
@@ -150,7 +145,7 @@ namespace Powykonawcza
         {
             this.Close();
         }
- 
+
         private void MenuItem_ClickOpen(object sender, RoutedEventArgs e)
         {
             richTextBox1.Document.Blocks.Clear();
@@ -164,11 +159,10 @@ namespace Powykonawcza
             {
                 //TextRange range = new TextRange(richTextBox1.FileName, richTextBox1.ContentEnd);
                 // FileStream fStream = new FileStream(openFileDialog, FileMode.Open, FileAccess.Read, FileShare.Read);
-
                 //range.Load(fStream, DataFormats.Rtf);
                 //fStream.Close();
 
-                string txt =File.ReadAllText(openFileDialog.FileName);
+                string txt = File.ReadAllText(openFileDialog.FileName);
                 string ext = System.IO.Path.GetExtension(openFileDialog.FileName);
 
                 MemoryStream stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(txt));
@@ -195,9 +189,12 @@ namespace Powykonawcza
             {
                 MenuItem_ClickOpen(null, null);
             }
+        }
 
-
-
+        private void MenuSzablonyImportu(object sender, RoutedEventArgs e)
+        {
+            SzablonyImportu sz = new SzablonyImportu();
+            sz.ShowDialog();
         }
     }
 }

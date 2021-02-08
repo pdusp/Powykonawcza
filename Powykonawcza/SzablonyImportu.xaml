@@ -1,0 +1,32 @@
+﻿<Window x:Class="Powykonawcza.SzablonyImportu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Powykonawcza"
+        mc:Ignorable="d"
+        Title="SzablonyImportu" Height="320" Width="350" Activated="Window_Activated">
+
+
+
+
+    <Grid HorizontalAlignment="Left" Width="330" Margin="10,0,0,0">
+
+        <Label Content="Nazwa Szablonu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="112,13,0,0" TextWrapping="Wrap" Text="Pomiary w terenie" VerticalAlignment="Top" Width="120"/>
+
+        <DataGrid  Name="gr1" Margin="10,41,110,10" Grid.RowSpan="2">
+
+            <DataGrid.ContextMenu>
+              
+                <ContextMenu BorderBrush="Black" BorderThickness="1">
+
+                    <MenuItem Header="&#8679;" Click="MenuItem_Clickup"/>
+                    <MenuItem Header="&#8681;"  Click="MenuItem_Clickdown"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+        </DataGrid>
+
+    </Grid>
+</Window>

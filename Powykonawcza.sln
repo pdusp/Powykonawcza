@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powykonawcza", "Powykonawcza\Powykonawcza.csproj", "{1430EAC4-E765-4E72-B1BE-7C1955FA1EA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tonizer", "Tokenizer\Tonizer\Tonizer.csproj", "{9687308B-1E3E-40BC-94AC-2377389E6176}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer", "Tokenizer\Tonizer\Tokenizer.csproj", "{9687308B-1E3E-40BC-94AC-2377389E6176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
