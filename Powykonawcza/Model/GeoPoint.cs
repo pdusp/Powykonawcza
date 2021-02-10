@@ -31,7 +31,13 @@ namespace Powykonawcza.Model
     {
         public string  nazwa { get; set; }
         public bool  import { get; set; }
-        public string  Inne { get; set; }
+        public string  inne { get; set; }
+        public SzablonItem(string n, bool i, string inn)
+        {
+            nazwa = n;
+            import = i;
+            inne = inn;
+        }
     }
 
 

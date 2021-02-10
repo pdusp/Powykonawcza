@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Powykonawcza.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -30,10 +32,7 @@ namespace Powykonawcza
         {
             InitializeComponent();
             populateSzablon();
-            //this.gr1.ItemsSource = l;
-            //
             gr1.AutoGenerateColumns = true;
-            //gr1.Columns.Add(new DataGridColumn(  ) );
             CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = l;
@@ -41,16 +40,13 @@ namespace Powykonawcza
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            
+
         }
 
         private ObservableCollection<SzablonItem> populateSzablon()
         {
-            //string s = Resource1.SzablonImportu;
-            //Resource1.SzablonImportu. = "dddddddd";
-
             IFormatter formatter = new BinaryFormatter();
-            
+            //
             try
             {
                 l.Clear();
@@ -61,25 +57,22 @@ namespace Powykonawcza
             }
             catch
             {
-                l.Add(new SzablonItem() { nazwa = "pkt", import = true, Inne = "numer Punktu" });
-                l.Add(new SzablonItem() { nazwa = "x", import = true, Inne = "współrzędna X" });
-                l.Add(new SzablonItem() { nazwa = "y", import = true, Inne = "współrzędna Y" });
-                l.Add(new SzablonItem() { nazwa = "z", import = true, Inne = "wysokość H" });
-                l.Add(new SzablonItem() { nazwa = "data", import = false, Inne = "data pomiaru" });
-                l.Add(new SzablonItem() { nazwa = "kod", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "mn", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "mh", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "mp", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "e", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "sat", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "pdop", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "wys_tyczki", import = false, Inne = "" });
-                l.Add(new SzablonItem() { nazwa = "typ", import = false, Inne = "" });
+                l.Add(new SzablonItem() { nazwa = "pkt", import = true, inne = "numer Punktu" });
+                l.Add(new SzablonItem() { nazwa = "x", import = true, inne = "współrzędna X" });
+                l.Add(new SzablonItem() { nazwa = "y", import = true, inne = "współrzędna Y" });
+                l.Add(new SzablonItem() { nazwa = "z", import = true, inne = "wysokość H" });
+                l.Add(new SzablonItem() { nazwa = "data", import = false, inne = "data pomiaru" });
+                l.Add(new SzablonItem() { nazwa = "kod", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "mn", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "mh", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "mp", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "e", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "sat", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "pdop", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "wys_tyczki", import = false, inne = "" });
+                l.Add(new SzablonItem() { nazwa = "typ", import = false, inne = "" });
             }
-
-
-         
-
+            //
             return l;
         }
 
@@ -157,7 +150,7 @@ namespace Powykonawcza
             {
                 if (l[i].nazwa == itm.nazwa)
                 {
-                    if (i < l.Count-1)
+                    if (i < l.Count - 1)
                     {
                         var szp = l[i + 1];
                         var szk = l[i];
@@ -177,24 +170,52 @@ namespace Powykonawcza
             gr1.Columns[2].IsReadOnly = true;
         }
 
-     
+        public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
+        {
+            var itemsSource = grid.ItemsSource as IEnumerable;
+            if (null == itemsSource) yield return null;
+            foreach (var item in itemsSource)
+            {
+                var row = grid.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+                if (null != row) yield return row;
+            }
+        }
 
 
         private void clik_zapisz(object sender, RoutedEventArgs e)
         {
-            SaveSzablon();
+            var rows = GetDataGridRows(gr1);
+            var itemsSource = gr1.ItemsSource as IEnumerable;
 
             for (int i = 0; i < l.Count; i++)
             {
-                Console.WriteLine(l[i].import);
+                string nazwa = l[i].nazwa;
+                //foreach (var item in gr1.Items)
+                //{
+                //    if ((String)item == nazwa)
+                //    {
+
+                //        break;
+                //    }
+
+                //}
+
+                //foreach (var dr in gr1.rows)
+                {
+                     
+                   // if (dr ==nazwa)
+                    {
+                       // l[i] = new SzablonItem(dr[0].ToString(), (bool)dr[1], dr[2].ToString());
+                    }
+                     
+                    Console.Write(Environment.NewLine);
+                }
+
+
+
+                SaveSzablon();
             }
 
-            string json = JsonConvert.SerializeObject(l, Formatting.Indented);
-            
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
         }
     }
