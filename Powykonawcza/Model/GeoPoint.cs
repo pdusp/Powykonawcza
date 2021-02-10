@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,11 +26,12 @@ namespace Powykonawcza.Model
         public string warning { get; set; }
     }
 
-    public struct SzablonItem
+    [Serializable]
+    public struct SzablonItem 
     {
-        public string nazwa { get; set; }
-        public bool import { get; set; }
-        public string Inne { get; set; }
+        public string  nazwa { get; set; }
+        public bool  import { get; set; }
+        public string  Inne { get; set; }
     }
 
 
