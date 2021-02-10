@@ -32,10 +32,10 @@ namespace Powykonawcza
         {
             InitializeComponent();
             populateSzablon();
-            gr1.AutoGenerateColumns = true;
+            //gr1.AutoGenerateColumns = true;
             CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-            itemCollectionViewSource.Source = l;
+             itemCollectionViewSource.Source = l;
         }
 
         private void Window_Activated(object sender, EventArgs e)

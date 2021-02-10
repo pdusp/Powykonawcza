@@ -1,0 +1,18 @@
+﻿funkcjonalność dołączyć do Pd. Geolib bo tematycznie jest związane. Mam takie propozycje
+a) trzeba to podzielić na część interfejsy i implementacja
+b) część WPFowa będzie po mojej strone więc okienka WPFowe do testów niech będą w osobnycm projekcie
+c) nazwesnictwo propertisów tylko po angielsku - taką mam konwencję. Dodatkowo jakby się dało dłuższe nazwy oraz opisy polskie w DescriptionAttribute
+d) namespace proponuję Pd.Geolib.Inventory
+
+z WPFa trzeba przenieść całą niewizualną logikę, zdefioniwać interfejcy i implementacje
+zapis Szablonu jako json
+
+testy jednostkowe.
+
+z tego co może ci się przydać to jak będziesz robił klasy implementujące INotifyPropertyChanged to mam w nugecie isukces.Trivial 
+(patrz dropbox) taką klasę NpcBase. To ułatwia tworzenie propertisów np.
+
+
+Piotrze, potrzebuje wskazówki, mam listę w tym oknie SzablonyImportu do wyklikania który atrybut importować z dokumentu. ObservableCollection<SzablonItem> l . 
+
+coś z tym moim bindingiem jest nie tak, zmiana w gridzie nie przenosi sie na listę, two-ways -moze masz jakąś wskazówkę? wiem że musze się tego poduczyć ale teraz wskazówka by mi pomogła ... Zapene chodzi tez o obsługę INotifyPropertyChanged

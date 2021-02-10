@@ -17,13 +17,19 @@
         <Label Content="Nazwa Szablonu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="112,13,0,0" TextWrapping="Wrap" Text="Pomiary w terenie" VerticalAlignment="Top" Width="120"/>
 
-        <DataGrid  Name="gr1" Margin="4,41,-4,4" RenderTransformOrigin="0.5,0.5" 
+        <DataGrid  Name="gr1" Margin="4,41,0,4" RenderTransformOrigin="0.5,0.5" 
          DataContext="{StaticResource ItemCollectionViewSource}"
-         ItemsSource="{Binding}"
-         
-            AutoGenerateColumns="False"
-                   
-                   >
+         ItemsSource="{Binding  }" AutoGenerateColumns="False"  >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}"  />
+                <DataGridCheckBoxColumn Header="import" Binding="{Binding Path=import}"  />
+                <DataGridTextColumn Header="inne" Binding="{Binding Path=inne}"  />
+
+
+            </DataGrid.Columns>
+            
+            
 
             <DataGrid.ContextMenu>
 
@@ -35,7 +41,7 @@
             </DataGrid.ContextMenu>
 
         </DataGrid>
-        <Button Content="Zapisz" HorizontalAlignment="Left" Click="clik_zapisz" Margin="237,13,-3,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Click="clik_zapisz" Margin="237,13,0,0" VerticalAlignment="Top" Width="62"/>
 
     </Grid>
 </Window>
