@@ -19,7 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Powykonawcza.Model.Szablon
+using Powykonawcza.Model.Szablon;
 
 namespace Powykonawcza
 {
@@ -35,7 +35,7 @@ namespace Powykonawcza
             populateSzablon();
             //gr1.AutoGenerateColumns = true;
             CollectionViewSource itemCollectionViewSource;
-            itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
+            itemCollectionViewSource        = (CollectionViewSource)FindResource("ItemCollectionViewSource");
             itemCollectionViewSource.Source = l;
         }
 

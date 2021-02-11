@@ -65,6 +65,7 @@ namespace Powykonawcza.Model.Szablon
         }
 
 
+        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne");
 
     }
 
