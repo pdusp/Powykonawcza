@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Powykonawcza.DAL;
 using Powykonawcza.Model.Szablon;
 
 namespace Powykonawcza
@@ -47,28 +48,24 @@ namespace Powykonawcza
             //
             try
             {
-                GridItems.Clear();
-                Stream streamIn = new FileStream(@"SzablonImportu.dat", FileMode.Open, FileAccess.Read);
-                GridItems = (ObservableCollection<SzablonItem>)formatter.Deserialize(streamIn);
-                streamIn.Close();
-                return GridItems;
+              return GridItems = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"SzablonImportu.dat");
             }
             catch
             {
-                GridItems.Add(new SzablonItem(  "pkt",   true, "numer Punktu" ));
-                GridItems.Add(new SzablonItem(  "x",   true,   "współrzędna X" ));
-                GridItems.Add(new SzablonItem(   "y", true,  "współrzędna y" ));
-                GridItems.Add(new SzablonItem(   "z", true,  "wysokość h" ));
-                GridItems.Add(new SzablonItem( "data", false, "data pomiaru" ));
-                GridItems.Add(new SzablonItem( "kod",  false, "" ));
-                GridItems.Add(new SzablonItem( "mn",  false,  "" ));
-                GridItems.Add(new SzablonItem( "mh",  false,  "" ));
-                GridItems.Add(new SzablonItem( "mp",  false,  "" ));
-                GridItems.Add(new SzablonItem(  "e",  false,  "" ));
-                GridItems.Add(new SzablonItem( "sat",  false,  "" ));
-                GridItems.Add(new SzablonItem( "pdop",  false, "" ));
-                GridItems.Add(new SzablonItem( "wys_tyczki", false, "" ));
-                GridItems.Add(new SzablonItem( "typ", false,  "" ));
+                GridItems.Add(new SzablonItem("pkt", true, "numer Punktu", "string"));
+                GridItems.Add(new SzablonItem("x", true, "współrzędna X", "numeric"));
+                GridItems.Add(new SzablonItem("y", true, "współrzędna y", "numeric"));
+                GridItems.Add(new SzablonItem("h", true, "wysokość h", "numeric"));
+                GridItems.Add(new SzablonItem("data", false, "data pomiaru", "date"));
+                GridItems.Add(new SzablonItem("kod", false, "", "string"));
+                GridItems.Add(new SzablonItem("mn", false, "", "string"));
+                GridItems.Add(new SzablonItem("mh", false, "", "numeric"));
+                GridItems.Add(new SzablonItem("mp", false, "", "numeric"));
+                GridItems.Add(new SzablonItem("e", false, "", "integer"));
+                GridItems.Add(new SzablonItem("sat", false, "", "integer"));
+                GridItems.Add(new SzablonItem("pdop", false, "", "numeric"));
+                GridItems.Add(new SzablonItem("wys_tyczki", false, "", "numeric"));
+                GridItems.Add(new SzablonItem("typ", false, "", "string"));
             }
             //
             return GridItems;
@@ -86,11 +83,7 @@ namespace Powykonawcza
 
         private void SaveSzablon()
         {
-            //  IFormatter formatter = new BinaryFormatter();
-            IFormatter formatterOut = new BinaryFormatter();
-            Stream stream = new FileStream(@"SzablonImportu.dat", FileMode.Create, FileAccess.Write);
-            formatterOut.Serialize(stream, GridItems);
-            stream.Close();
+           JsonUtils.SaveJson(@"SzablonImportu.dat", GridItems);
         }
 
 
@@ -200,12 +193,12 @@ namespace Powykonawcza
 
                 //foreach (var dr in gr1.rows)
                 {
-                     
-                   // if (dr ==nazwa)
+
+                    // if (dr ==nazwa)
                     {
-                       // l[i] = new SzablonItem(dr[0].ToString(), (bool)dr[1], dr[2].ToString());
+                        // l[i] = new SzablonItem(dr[0].ToString(), (bool)dr[1], dr[2].ToString());
                     }
-                     
+
                     Console.Write(Environment.NewLine);
                 }
 

@@ -7,11 +7,12 @@ namespace Powykonawcza.Model.Szablon
     [Serializable]
     public class SzablonItem : INotifyPropertyChanged
     {
-        public SzablonItem(string nazwa, bool import, string inne)
+        public SzablonItem(string nazwa, bool import, string inne, string type)
         {
             _nazwa  = nazwa;
             _import = import;
             _inne   = inne;
+            _type = type;
         }
 
         protected void SetAndNotify<T>(ref T backField,
@@ -33,7 +34,7 @@ namespace Powykonawcza.Model.Szablon
         }
 
 
-        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne");
+        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne","string");
 
         public string nazwa
         {
@@ -53,9 +54,17 @@ namespace Powykonawcza.Model.Szablon
             set => SetAndNotify(ref _inne, value);
         }
 
+        public string type
+        {
+            get => _type;
+            set => SetAndNotify(ref _type, value);
+        }
+
+
         private string _nazwa;
         private bool _import;
         private string _inne;
+        private string _type;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

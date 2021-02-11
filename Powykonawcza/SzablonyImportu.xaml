@@ -25,8 +25,7 @@
                 <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}"  />
                 <DataGridCheckBoxColumn Header="import" Binding="{Binding Path=import}"  />
                 <DataGridTextColumn Header="inne" Binding="{Binding Path=inne}"  />
-
-
+                <DataGridTextColumn Header="type" Binding="{Binding Path=type}"  />
             </DataGrid.Columns>
             
             
