@@ -10,7 +10,6 @@
 
     <Window.Resources>
         <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
-        <model:SzablonItem x:Key="m" ></model:SzablonItem>
     </Window.Resources>
 
 
