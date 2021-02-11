@@ -39,7 +39,7 @@ namespace Powykonawcza.Model.Szablon
         public string nazwa
         {
             get => _nazwa;
-            set => SetAndNotify(ref _nazwa, value);
+           // set => SetAndNotify(ref _nazwa, value);
         }
 
         public bool import
@@ -51,13 +51,13 @@ namespace Powykonawcza.Model.Szablon
         public string inne
         {
             get => _inne;
-            set => SetAndNotify(ref _inne, value);
+            //set => SetAndNotify(ref _inne, value);
         }
 
         public string type
         {
             get => _type;
-            set => SetAndNotify(ref _type, value);
+            //set => SetAndNotify(ref _type, value);
         }
 
 

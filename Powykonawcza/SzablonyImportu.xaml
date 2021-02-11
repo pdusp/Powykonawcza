@@ -22,10 +22,10 @@
           AutoGenerateColumns="False"  >
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}"  />
+                <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}" IsReadOnly="True"    />
                 <DataGridCheckBoxColumn Header="import" Binding="{Binding Path=import}"  />
-                <DataGridTextColumn Header="inne" Binding="{Binding Path=inne}"  />
-                <DataGridTextColumn Header="type" Binding="{Binding Path=type}"  />
+                <DataGridTextColumn Header="inne" Binding="{Binding Path=inne}" IsReadOnly="True" />
+                <DataGridTextColumn Header="type" Binding="{Binding Path=type}" IsReadOnly="True" />
             </DataGrid.Columns>
             
             
