@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Powykonawcza.Model.Szablon
 {
@@ -24,7 +25,7 @@ namespace Powykonawcza.Model.Szablon
             set
             {
                 _nazwa = value;
-                OnPropertyRaised("nazwa");
+                OnPropertyRaised();
             }
         }
         public bool import
@@ -36,7 +37,7 @@ namespace Powykonawcza.Model.Szablon
             set
             {
                 _import = value;
-                OnPropertyRaised("import");
+                OnPropertyRaised();
             }
         }
         public string inne
@@ -49,14 +50,14 @@ namespace Powykonawcza.Model.Szablon
             set
             {
                 _inne = value;
-                OnPropertyRaised("inne");
+                OnPropertyRaised();
             }
 
         }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyRaised(string propertyname)
+        private void OnPropertyRaised([CallerMemberName] string propertyname=null)
         {
             if (PropertyChanged != null)
             {
