@@ -28,15 +28,12 @@ namespace Powykonawcza
     /// </summary>
     public partial class SzablonyImportu : Window
     {
-        public ObservableCollection<SzablonItem> l = new ObservableCollection<SzablonItem>();
+        public ObservableCollection<SzablonItem> GridItems = new ObservableCollection<SzablonItem>();
         public SzablonyImportu()
         {
             InitializeComponent();
             populateSzablon();
-            //gr1.AutoGenerateColumns = true;
-            CollectionViewSource itemCollectionViewSource;
-            itemCollectionViewSource        = (CollectionViewSource)FindResource("ItemCollectionViewSource");
-            itemCollectionViewSource.Source = l;
+            gr1.ItemsSource = GridItems;
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -50,31 +47,31 @@ namespace Powykonawcza
             //
             try
             {
-                l.Clear();
+                GridItems.Clear();
                 Stream streamIn = new FileStream(@"SzablonImportu.dat", FileMode.Open, FileAccess.Read);
-                l = (ObservableCollection<SzablonItem>)formatter.Deserialize(streamIn);
+                GridItems = (ObservableCollection<SzablonItem>)formatter.Deserialize(streamIn);
                 streamIn.Close();
-                return l;
+                return GridItems;
             }
             catch
             {
-                l.Add(new SzablonItem(  "pkt",   true, "numer Punktu" ));
-                l.Add(new SzablonItem(  "x",   true,   "współrzędna X" ));
-                l.Add(new SzablonItem(   "y", true,  "współrzędna y" ));
-                l.Add(new SzablonItem(   "z", true,  "wysokość h" ));
-                l.Add(new SzablonItem( "data", false, "data pomiaru" ));
-                l.Add(new SzablonItem( "kod",  false, "" ));
-                l.Add(new SzablonItem( "mn",  false,  "" ));
-                l.Add(new SzablonItem( "mh",  false,  "" ));
-                l.Add(new SzablonItem( "mp",  false,  "" ));
-                l.Add(new SzablonItem(  "e",  false,  "" ));
-                l.Add(new SzablonItem( "sat",  false,  "" ));
-                l.Add(new SzablonItem( "pdop",  false, "" ));
-                l.Add(new SzablonItem( "wys_tyczki", false, "" ));
-                l.Add(new SzablonItem( "typ", false,  "" ));
+                GridItems.Add(new SzablonItem(  "pkt",   true, "numer Punktu" ));
+                GridItems.Add(new SzablonItem(  "x",   true,   "współrzędna X" ));
+                GridItems.Add(new SzablonItem(   "y", true,  "współrzędna y" ));
+                GridItems.Add(new SzablonItem(   "z", true,  "wysokość h" ));
+                GridItems.Add(new SzablonItem( "data", false, "data pomiaru" ));
+                GridItems.Add(new SzablonItem( "kod",  false, "" ));
+                GridItems.Add(new SzablonItem( "mn",  false,  "" ));
+                GridItems.Add(new SzablonItem( "mh",  false,  "" ));
+                GridItems.Add(new SzablonItem( "mp",  false,  "" ));
+                GridItems.Add(new SzablonItem(  "e",  false,  "" ));
+                GridItems.Add(new SzablonItem( "sat",  false,  "" ));
+                GridItems.Add(new SzablonItem( "pdop",  false, "" ));
+                GridItems.Add(new SzablonItem( "wys_tyczki", false, "" ));
+                GridItems.Add(new SzablonItem( "typ", false,  "" ));
             }
             //
-            return l;
+            return GridItems;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -92,7 +89,7 @@ namespace Powykonawcza
             //  IFormatter formatter = new BinaryFormatter();
             IFormatter formatterOut = new BinaryFormatter();
             Stream stream = new FileStream(@"SzablonImportu.dat", FileMode.Create, FileAccess.Write);
-            formatterOut.Serialize(stream, l);
+            formatterOut.Serialize(stream, GridItems);
             stream.Close();
         }
 
@@ -113,18 +110,18 @@ namespace Powykonawcza
             var itm = (SzablonItem)item.SelectedCells[0].Item;
 
             //int lp=l.Find((x => x.nazwa.Contains(itm.nazwa))).;
-            for (int i = 0; i < l.Count; i++)
+            for (int i = 0; i < GridItems.Count; i++)
             {
-                if (l[i].nazwa == itm.nazwa)
+                if (GridItems[i].nazwa == itm.nazwa)
                 {
                     if (i > 0)
                     {
-                        var szp = l[i - 1];
-                        var szk = l[i];
-                        l[i] = szp;
-                        l[i - 1] = szk;
+                        var szp = GridItems[i - 1];
+                        var szk = GridItems[i];
+                        GridItems[i] = szp;
+                        GridItems[i - 1] = szk;
                         gr1.ItemsSource = null;
-                        gr1.ItemsSource = l;
+                        gr1.ItemsSource = GridItems;
                     }
                     break;
                 }
@@ -147,18 +144,18 @@ namespace Powykonawcza
             var itm = (SzablonItem)item.SelectedCells[0].Item;
 
             //int lp=l.Find((x => x.nazwa.Contains(itm.nazwa))).;
-            for (int i = 0; i < l.Count; i++)
+            for (int i = 0; i < GridItems.Count; i++)
             {
-                if (l[i].nazwa == itm.nazwa)
+                if (GridItems[i].nazwa == itm.nazwa)
                 {
-                    if (i < l.Count - 1)
+                    if (i < GridItems.Count - 1)
                     {
-                        var szp = l[i + 1];
-                        var szk = l[i];
-                        l[i] = szp;
-                        l[i + 1] = szk;
+                        var szp = GridItems[i + 1];
+                        var szk = GridItems[i];
+                        GridItems[i] = szp;
+                        GridItems[i + 1] = szk;
                         gr1.ItemsSource = null;
-                        gr1.ItemsSource = l;
+                        gr1.ItemsSource = GridItems;
                     }
                     break;
                 }
@@ -188,9 +185,9 @@ namespace Powykonawcza
             var rows = GetDataGridRows(gr1);
             var itemsSource = gr1.ItemsSource as IEnumerable;
 
-            for (int i = 0; i < l.Count; i++)
+            for (int i = 0; i < GridItems.Count; i++)
             {
-                string nazwa = l[i].nazwa;
+                string nazwa = GridItems[i].nazwa;
                 //foreach (var item in gr1.Items)
                 //{
                 //    if ((String)item == nazwa)

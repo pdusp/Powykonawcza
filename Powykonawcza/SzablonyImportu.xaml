@@ -19,8 +19,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="112,13,0,0" TextWrapping="Wrap" Text="Pomiary w terenie" VerticalAlignment="Top" Width="120"/>
 
         <DataGrid  Name="gr1" Margin="4,41,0,4" RenderTransformOrigin="0.5,0.5" 
-         DataContext="{x:Static model:SzablonItem.SampleInstance}"
-         ItemsSource="{Binding}" AutoGenerateColumns="False"  >
+          AutoGenerateColumns="False"  >
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}"  />
