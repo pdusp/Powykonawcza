@@ -13,6 +13,10 @@ z tego co może ci się przydać to jak będziesz robił klasy implementujące I
 (patrz dropbox) taką klasę NpcBase. To ułatwia tworzenie propertisów np.
 
 
-Piotrze, potrzebuje wskazówki, mam listę w tym oknie SzablonyImportu do wyklikania który atrybut importować z dokumentu. ObservableCollection<SzablonItem> l . 
+Piotrze, potrzebuje wskazówki, 
+mam listę w tym oknie SzablonyImportu do wyklikania 
+atrybut checkbox boolean czy importować z dokumentu. 
+ObservableCollection<SzablonItem> l podpiętą do DataGrid. 
 
-coś z tym moim bindingiem jest nie tak, zmiana w gridzie nie przenosi sie na listę, two-ways -moze masz jakąś wskazówkę? wiem że musze się tego poduczyć ale teraz wskazówka by mi pomogła ... Zapene chodzi tez o obsługę INotifyPropertyChanged
+coś z tym moim bindingiem jest nie tak, zmiana w gridzie nie przenosi sie na listę, -moze masz jakąś wskazówkę? 
+Binding działa dla akcji delete, usunieta pozycja z DataGrid usuwa wiersz z listy, ale zmodyfikowana już jej nie zmienia....

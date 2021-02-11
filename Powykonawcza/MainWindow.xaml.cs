@@ -21,6 +21,18 @@ using Microsoft.Win32;
 using Powykonawcza.DAL;
 using Powykonawcza.Model;
 
+/*
+Do przeniesienia:
+mn - typ poprawek sieciowych i typ rozwiązania układu równań (RTK - już nieużywany dawny sposób nakładania poprawek) RTN - real time network i po myślniku Fix (dokoładny typ rozwiązania - fixed), Float (mniej dokładny), Auto - autonomiczny, bez uwzględnienia poprawek sieciowych
+Mh - średni błąd punktu wysokościowo (H)
+Mp - średni błąd punktu sytuacyjnie (X i Y)
+e - ilość epok pomiaru, czyli jak wiele razy odbiornik wyznaczał pozycję zanim ją uśrednił i zapisał
+sat - ilość satelit, na podstawie obserwacji których wyznaczono współrzędne danego punktu
+PDOP - układ geometryczny satelit, których użyto do pomiaru - im wyższa wartość tym gorszy układ.
+Wys. tyczki - wiadomo, ale zdarza się też używać pozycji wysokość anteny, a to trochę co innego 
+*/
+
+
 namespace Powykonawcza
 {
     /// <summary>
@@ -74,7 +86,7 @@ namespace Powykonawcza
                 //id = Int32.Parse(f[1]);
                 // 
                 string[] result = Regex.Split(line, FilterFilter, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(500));
-                int val;
+                //int val;
                 decimal vald;
                 bool success = true;
 

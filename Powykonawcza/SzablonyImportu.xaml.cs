@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Powykonawcza.Model.Szablon
 
 namespace Powykonawcza
 {
@@ -27,7 +28,7 @@ namespace Powykonawcza
     /// </summary>
     public partial class SzablonyImportu : Window
     {
-        private ObservableCollection<SzablonItem> l = new ObservableCollection<SzablonItem>();
+        public ObservableCollection<SzablonItem> l = new ObservableCollection<SzablonItem>();
         public SzablonyImportu()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace Powykonawcza
             //gr1.AutoGenerateColumns = true;
             CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-             itemCollectionViewSource.Source = l;
+            itemCollectionViewSource.Source = l;
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -57,20 +58,20 @@ namespace Powykonawcza
             }
             catch
             {
-                l.Add(new SzablonItem() { nazwa = "pkt", import = true, inne = "numer Punktu" });
-                l.Add(new SzablonItem() { nazwa = "x", import = true, inne = "współrzędna X" });
-                l.Add(new SzablonItem() { nazwa = "y", import = true, inne = "współrzędna Y" });
-                l.Add(new SzablonItem() { nazwa = "z", import = true, inne = "wysokość H" });
-                l.Add(new SzablonItem() { nazwa = "data", import = false, inne = "data pomiaru" });
-                l.Add(new SzablonItem() { nazwa = "kod", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "mn", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "mh", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "mp", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "e", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "sat", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "pdop", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "wys_tyczki", import = false, inne = "" });
-                l.Add(new SzablonItem() { nazwa = "typ", import = false, inne = "" });
+                l.Add(new SzablonItem(  "pkt",   true, "numer Punktu" ));
+                l.Add(new SzablonItem(  "x",   true,   "współrzędna X" ));
+                l.Add(new SzablonItem(   "y", true,  "współrzędna y" ));
+                l.Add(new SzablonItem(   "z", true,  "wysokość h" ));
+                l.Add(new SzablonItem( "data", false, "data pomiaru" ));
+                l.Add(new SzablonItem( "kod",  false, "" ));
+                l.Add(new SzablonItem( "mn",  false,  "" ));
+                l.Add(new SzablonItem( "mh",  false,  "" ));
+                l.Add(new SzablonItem( "mp",  false,  "" ));
+                l.Add(new SzablonItem(  "e",  false,  "" ));
+                l.Add(new SzablonItem( "sat",  false,  "" ));
+                l.Add(new SzablonItem( "pdop",  false, "" ));
+                l.Add(new SzablonItem( "wys_tyczki", false, "" ));
+                l.Add(new SzablonItem( "typ", false,  "" ));
             }
             //
             return l;

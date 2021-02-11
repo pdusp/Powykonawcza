@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,20 +23,6 @@ namespace Powykonawcza.Model
         public decimal? wys_tyczki { get; set; }
         public string typ { get; set; }
         public string warning { get; set; }
-    }
-
-    [Serializable]
-    public struct SzablonItem 
-    {
-        public string  nazwa { get; set; }
-        public bool  import { get; set; }
-        public string  inne { get; set; }
-        public SzablonItem(string n, bool i, string inn)
-        {
-            nazwa = n;
-            import = i;
-            inne = inn;
-        }
     }
 
 
