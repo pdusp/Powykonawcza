@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Powykonawcza"
         mc:Ignorable="d"
-        xmlns:model="clr-namespace:Powykonawcza.Model.Szablon" 
+        xmlns:model="clr-namespace:Powykonawcza.Model.Szablon"  
         Title="SzablonyImportu" Height="354" Width="340" Activated="Window_Activated">
 
     <Window.Resources>
