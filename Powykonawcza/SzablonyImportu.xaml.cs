@@ -39,9 +39,9 @@ namespace Powykonawcza
             //
             try
             {
-                var GridItems = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"SzablonImportu.dat");
-                if (GridItems is null || GridItems.Count==0) { throw new ArgumentException("GridItems cannot be null"); }
-                return GridItems;
+                var gridItems = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"SzablonImportu.dat");
+                if (gridItems is null || gridItems.Count==0) { throw new ArgumentException("GridItems cannot be null"); }
+                return gridItems;
             }
             catch
             {

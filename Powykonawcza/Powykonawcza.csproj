@@ -69,6 +69,7 @@
     <Compile Include="SzablonyImportu.xaml.cs">
       <DependentUpon>SzablonyImportu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tokenizer.cs" />
     <Page Include="DrawiGeo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

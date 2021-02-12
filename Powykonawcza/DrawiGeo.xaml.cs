@@ -52,7 +52,7 @@ namespace Powykonawcza
             Ellipse currentDot = new Ellipse();
             currentDot.Stroke = new SolidColorBrush(Colors.Green);
             currentDot.StrokeThickness = 3;
-            Canvas.SetZIndex(currentDot, 3);
+            Panel.SetZIndex(currentDot, 3);
             currentDot.Height = dotSize;
             currentDot.Width = dotSize;
             currentDot.Fill = new SolidColorBrush(Colors.Green);

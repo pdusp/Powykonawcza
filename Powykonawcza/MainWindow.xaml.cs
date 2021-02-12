@@ -1,26 +1,17 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Input;
+using Powykonawcza.DAL;
+using Powykonawcza.Model;
+using Powykonawcza.Model.Szablon;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
-using Powykonawcza.DAL;
-using Powykonawcza.Model;
-using Powykonawcza.Model.Szablon;
 
 /*
 Do przeniesienia:
@@ -89,7 +80,7 @@ namespace Powykonawcza
             lg = new List<RegGeoPoint>();
             foreach (string txtline in rtbLines)
             {
-                var objects = new SimpleParser.TokenParsers.Tokenizer().Parse(txtline);
+                var objects = new Tokenizer().Parse(txtline);
                 //  foreach (var i in objects.Tokens)
                 //    System.Console.WriteLine(i);
 
@@ -139,7 +130,7 @@ namespace Powykonawcza
                 string txt = File.ReadAllText(openFileDialog.FileName);
                 string ext = System.IO.Path.GetExtension(openFileDialog.FileName);
 
-                MemoryStream stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(txt));
+                MemoryStream stream = new MemoryStream(Encoding.Default.GetBytes(txt));
 
                 if (ext.ToLower() == ".rtf")
                 {
