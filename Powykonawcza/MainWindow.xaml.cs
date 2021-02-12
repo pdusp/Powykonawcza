@@ -12,6 +12,7 @@ using System.Text;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using Microsoft.Win32;
+using System.Reflection;
 
 /*
 Do przeniesienia:
@@ -58,12 +59,12 @@ namespace Powykonawcza
             SzablonyImportu sz = new SzablonyImportu();
             sz.ShowDialog();
 
-            var szablonItems = sz.CurrentTemplate();
+            var szablonItems = sz.CurrentTemplate().ToList();
 
-            if (szablonItems.Count()<1)
+            if (szablonItems.Count() < 1)
             {
                 MessageBox.Show("Selected Template is empty");
-                return; 
+                return;
             }
 
             //RawDate
@@ -79,14 +80,22 @@ namespace Powykonawcza
             //
             lg = new List<RegGeoPoint>();
             foreach (string txtline in rtbLines)
-            {
-                var objects = new Tokenizer().Parse(txtline);
-                //  foreach (var i in objects.Tokens)
-                //    System.Console.WriteLine(i);
+            {   
+                RegGeoPoint point = new RegGeoPoint();
+                var objects = new Tokenizer().Parse(txtline);//objects.Tokens
+                for  (var i=0; i<objects.Tokens.Length; i++)
+                {
+                    //point[szablonItems[i].nazwa.ToString()] = objects.Tokens[i].ToString();   szablonItems[i].nazwa.ToString()
+                    //System.Reflection.SetProperty(point, "nazwa") = objects.Tokens[i].ToString();  
 
-                //RegGeoPoint p = new RegGeoPoint { pkt = pkt, x = x, y = y, h = h, typ = typ, warning = warning };
-
-                // lg.Add(p);
+                    PropertyInfo prop = point.GetType().GetProperty(szablonItems[i].nazwa.ToString(), BindingFlags.Public | BindingFlags.Instance);
+                    if (null != prop && prop.CanWrite && (prop.PropertyType== Type.))
+                    {
+                        prop.SetValue(point, objects.Tokens[i].ToString(), null);
+                    }
+                     
+                }
+                lg.Add(point);
             }
 
 
@@ -164,7 +173,7 @@ namespace Powykonawcza
             sz.ShowDialog();
         }
 
-        
+
     }
 }
 
