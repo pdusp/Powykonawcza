@@ -96,7 +96,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\GeoPoint.cs" />
+    <Compile Include="Model\RegGeoPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleParser\SimpleParser.csproj">
+      <Project>{69dcde90-f0fa-441f-8136-5e8fea231347}</Project>
+      <Name>SimpleParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

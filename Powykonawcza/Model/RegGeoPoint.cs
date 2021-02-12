@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Powykonawcza.Model
 {
-    public struct GeoPoint
+    public struct RegGeoPoint
     {
         public string pkt { get; set; }
         public decimal x { get; set; }
@@ -24,10 +24,5 @@ namespace Powykonawcza.Model
         public string typ { get; set; }
         public string warning { get; set; }
     }
-
-
-
-
-
 
 }

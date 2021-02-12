@@ -44,7 +44,7 @@
         </RichTextBox>
 
 
-        <Button Content="Import" Margin="10,22,10,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Import" Margin="10,22,10,0" VerticalAlignment="Top" Click="ButtonImport_Click" IsEnabled="False" Name="ButtonImport"  />
 
         <DataGrid Grid.Column="1" Margin="23,62,10,10" Name="dg1"  CanUserSortColumns="False" Grid.RowSpan="2"  />
         <Button Content="Draw" Grid.Column="1" HorizontalAlignment="Left" Margin="23,22,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>

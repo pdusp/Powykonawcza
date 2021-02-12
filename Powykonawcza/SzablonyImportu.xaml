@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Powykonawcza"
         mc:Ignorable="d"
         xmlns:model="clr-namespace:Powykonawcza.Model.Szablon"  
-        Title="SzablonyImportu" Height="354" Width="340" Activated="Window_Activated">
+        Title="SzablonyImportu" Height="354" Width="340"  >
 
     <Window.Resources>
         <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>

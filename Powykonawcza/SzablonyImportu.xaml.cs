@@ -1,24 +1,11 @@
-﻿using Newtonsoft.Json;
-using Powykonawcza.Model;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Powykonawcza.DAL;
 using Powykonawcza.Model.Szablon;
 
@@ -33,13 +20,17 @@ namespace Powykonawcza
         public SzablonyImportu()
         {
             InitializeComponent();
-
             gr1.ItemsSource = populateSzablon();
         }
+         
 
-        private void Window_Activated(object sender, EventArgs e)
+        public IEnumerable<SzablonItem> CurrentTemplate()
         {
-
+            for (int i = 0; i < GridItems.Count; i++)
+            {
+                if (GridItems[i].import == true)
+                    yield return GridItems[i];
+            }
         }
 
         private ObservableCollection<SzablonItem> populateSzablon()
@@ -73,15 +64,7 @@ namespace Powykonawcza
             return GridItems;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
+ 
 
         private void SaveSzablon()
         {

@@ -20,8 +20,8 @@ namespace Powykonawcza
     /// </summary>
     public partial class DrawiGeo : Window
     {
-        private List<GeoPoint> lg;
-        public DrawiGeo(List<GeoPoint> _l)
+        private List<RegGeoPoint> lg;
+        public DrawiGeo(List<RegGeoPoint> _l)
         {
             InitializeComponent();
             lg = _l;
@@ -33,7 +33,7 @@ namespace Powykonawcza
             int ofy = int.Parse(offy.Text);
 
 
-            foreach (GeoPoint p in lg)
+            foreach (RegGeoPoint p in lg)
             {
                 var ellipse = new Ellipse() { Width = 1.5, Height = 1.5, Stroke = new SolidColorBrush(Colors.LightBlue) };
 

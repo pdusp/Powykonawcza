@@ -60,7 +60,6 @@ namespace Powykonawcza.Model.Szablon
             set => SetAndNotify(ref _type, value);
         }
 
-
         private string _nazwa;
         private bool _import;
         private string _inne;
