@@ -59,7 +59,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DAL\Class1.cs" />
     <Compile Include="DAL\JsonUtils.cs" />
     <Compile Include="Model\SzablonItem.cs" />
     <Compile Include="Resource1.Designer.cs">
