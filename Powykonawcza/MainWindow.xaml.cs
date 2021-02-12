@@ -60,8 +60,9 @@ namespace Powykonawcza
             sz.ShowDialog();
 
             var szablonItems = sz.CurrentTemplate().ToList();
+            int expectedColumns = szablonItems.Count();
 
-            if (szablonItems.Count() < 1)
+            if (expectedColumns < 2)
             {
                 MessageBox.Show("Selected Template is empty");
                 return;
@@ -71,29 +72,55 @@ namespace Powykonawcza
             //StringCollection lines = Import.GetLinesCollectionFromTextBox(richTextBox1);
             //StringCollection lines = 
             TextRange textRange = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
-            string[] rtbLines = textRange.Text.Split('\n');
+            List<string> rtbLines = textRange.Text.Split('\n').ToList();
+            //czyszczenie z pustych linii 
+            rtbLines = rtbLines.Where(w=> w.Length>4).ToList();
             //
-            foreach (var line in rtbLines)
+            //wstępna weryfikacja pliku
+            int lineNo = 0;
+            foreach (string txtline in rtbLines)
             {
-                Console.WriteLine(line);
+                lineNo++;
+                if (txtline.Length<10)
+                {
+                    MessageBox.Show($"LineNo: {lineNo} ->  {txtline } is not correct, too short. Import break!");
+                    return;
+                }
             }
+
+
+            foreach (string txtline in rtbLines)
+            {
+                var objects = new Tokenizer().Parse(txtline);
+                if (objects.Tokens.Length != expectedColumns)
+                {
+                    MessageBox.Show($"Line no: {objects.Tokens[0] } is not correct. Import break!");
+                    return;
+                }
+            }
+            //
             //
             lg = new List<RegGeoPoint>();
             foreach (string txtline in rtbLines)
-            {   
+            {
                 RegGeoPoint point = new RegGeoPoint();
                 var objects = new Tokenizer().Parse(txtline);//objects.Tokens
-                for  (var i=0; i<objects.Tokens.Length; i++)
+                for (var i = 0; i < objects.Tokens.Length; i++)
                 {
-                    //point[szablonItems[i].nazwa.ToString()] = objects.Tokens[i].ToString();   szablonItems[i].nazwa.ToString()
-                    //System.Reflection.SetProperty(point, "nazwa") = objects.Tokens[i].ToString();  
-
                     PropertyInfo prop = point.GetType().GetProperty(szablonItems[i].nazwa.ToString(), BindingFlags.Public | BindingFlags.Instance);
-                    if (null != prop && prop.CanWrite && (prop.PropertyType== Type.))
+                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "string"))
                     {
                         prop.SetValue(point, objects.Tokens[i].ToString(), null);
                     }
-                     
+                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "numeric"))
+                    {
+                        prop.SetValue(point, decimal.Parse(objects.Tokens[i].ToString()), null);
+                    }
+                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "integer"))
+                    {
+                        prop.SetValue(point, Int32.Parse(objects.Tokens[i].ToString()), null);
+                    }
+
                 }
                 lg.Add(point);
             }
