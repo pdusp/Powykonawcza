@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Powykonawcza.Model
 {
-    public struct RegGeoPoint
+    public class RegGeoPoint
     {
         public string pkt { get; set; }
         public decimal x { get; set; }
         public decimal y { get; set; }
         public decimal h { get; set; }
         public string kod { get; set; }
-        public DateTime? data { get; set; }
+        public string data { get; set; }
         public string mn { get; set; }
         public string mh { get; set; }
         public string mp { get; set; }

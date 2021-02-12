@@ -58,8 +58,23 @@ namespace Powykonawcza
             //GetSzablon
             SzablonyImportu sz = new SzablonyImportu();
             sz.ShowDialog();
+            ;
 
-            var szablonItems = sz.CurrentTemplate().ToList();
+            List<SzablonItem> szablonItems;
+
+            try
+            {
+                szablonItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"SzablonImportu.dat");
+                szablonItems = szablonItems.Where(p => p.import == true).ToList();
+
+            }
+            catch
+            {
+                return;
+            }
+
+            //var szablonItems = sz.CurrentTemplate().ToList();
+            ;
             int expectedColumns = szablonItems.Count();
 
             if (expectedColumns < 2)
@@ -74,14 +89,14 @@ namespace Powykonawcza
             TextRange textRange = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
             List<string> rtbLines = textRange.Text.Split('\n').ToList();
             //czyszczenie z pustych linii 
-            rtbLines = rtbLines.Where(w=> w.Length>4).ToList();
+            rtbLines = rtbLines.Where(w => w.Length > 4).ToList();
             //
             //wstępna weryfikacja pliku
             int lineNo = 0;
             foreach (string txtline in rtbLines)
             {
                 lineNo++;
-                if (txtline.Length<10)
+                if (txtline.Length < 10)
                 {
                     MessageBox.Show($"LineNo: {lineNo} ->  {txtline } is not correct, too short. Import break!");
                     return;
@@ -111,6 +126,8 @@ namespace Powykonawcza
                     if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "string"))
                     {
                         prop.SetValue(point, objects.Tokens[i].ToString(), null);
+                        //FieldInfo fi = point.GetType().GetField(szablonItems[i].nazwa.ToString(), BindingFlags.NonPublic | BindingFlags.Instance);
+                       // fi.SetValue(point, objects.Tokens[i].ToString());
                     }
                     if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "numeric"))
                     {

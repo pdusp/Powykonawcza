@@ -22,10 +22,13 @@ namespace Powykonawcza
             InitializeComponent();
             gr1.ItemsSource = populateSzablon();
         }
-         
+
 
         public IEnumerable<SzablonItem> CurrentTemplate()
         {
+            var rows = GetDataGridRows(gr1);
+            var itemsSource = gr1.ItemsSource as IEnumerable;
+
             for (int i = 0; i < GridItems.Count; i++)
             {
                 if (GridItems[i].import == true)
@@ -40,7 +43,7 @@ namespace Powykonawcza
             try
             {
                 var gridItems = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"SzablonImportu.dat");
-                if (gridItems is null || gridItems.Count==0) { throw new ArgumentException("GridItems cannot be null"); }
+                if (gridItems is null || gridItems.Count == 0) { throw new ArgumentException("GridItems cannot be null"); }
                 return gridItems;
             }
             catch
@@ -64,7 +67,7 @@ namespace Powykonawcza
             return GridItems;
         }
 
- 
+
 
         private void SaveSzablon()
         {
@@ -126,7 +129,7 @@ namespace Powykonawcza
             {
                 if (GridItems[i].nazwa == itm.nazwa)
                 {
-                    if (i < GridItems.Count-1)
+                    if (i < GridItems.Count - 1)
                     {
                         var szp = GridItems[i + 1];
                         var szk = GridItems[i];
@@ -170,6 +173,12 @@ namespace Powykonawcza
             {
                 MessageBox.Show("Problem z zapisem pliku szablonu");
             }
+        }
+
+        public List<SzablonItem> ListImport = null;
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var szablonItems = GridItems;
         }
     }
 }
