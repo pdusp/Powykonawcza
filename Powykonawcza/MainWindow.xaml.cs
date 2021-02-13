@@ -42,7 +42,7 @@ namespace Powykonawcza
             var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
             var ci = new CultureInfo(currentCulture)
             {
-                NumberFormat = { NumberDecimalSeparator = "," },
+                NumberFormat = { NumberDecimalSeparator = "." },
                 DateTimeFormat = { DateSeparator = "/" }
             };
             System.Threading.Thread.CurrentThread.CurrentCulture = ci;
@@ -135,7 +135,8 @@ namespace Powykonawcza
                     }
                     if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "numeric"))
                     {
-                        prop.SetValue(point, decimal.Parse(objects.Tokens[i].ToString()), null);
+                        decimal dv = decimal.Parse(objects.Tokens[i].ToString().Replace(',', '.'));
+                        prop.SetValue(point, dv , null);
                     }
                     if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "integer"))
                     {
@@ -189,7 +190,7 @@ namespace Powykonawcza
 
         private void MenuItem_ClickOpen(object sender, RoutedEventArgs e)
         {
-            ButtonImport.IsEnabled = false;
+            mn_Import.IsEnabled = false;
             lg.Clear();
             btnsave.IsEnabled = false;
             //
@@ -216,7 +217,7 @@ namespace Powykonawcza
                     richTextBox1.Selection.Load(stream, DataFormats.Text);
                 }
 
-                ButtonImport.IsEnabled = true;
+                mn_Import.IsEnabled = true;
 
             }
 

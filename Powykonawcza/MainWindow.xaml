@@ -26,15 +26,18 @@
             <MenuItem Header="_Import danych">
                 <MenuItem Header="_Otwórz plik Ctrl+O" Click="MenuItem_ClickOpen"  />
                 <MenuItem Header="_Szablony importu"  Click="MenuSzablonyImportu"/>
+                <MenuItem Header="_Import" Click="ButtonImport_Click" Name="mn_Import" IsEnabled="False"/>
                 <Separator />
                 <MenuItem Header="_Zamknij" Click="MenuItem_ClickExit" />
+               
+                
             </MenuItem>
         </Menu>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
 
-        <Label Content="Podgląd pliku" RenderTransformOrigin="5,10" Margin="10,42,10,10" Name="podglad" />
-        <RichTextBox x:Name="richTextBox1" Margin="10,62,10,10">
+        <Label Content="Podgląd pliku"  Margin="10,22,10,10" Name="podglad" />
+        <RichTextBox x:Name="richTextBox1" Margin="10,46,10,10">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="RichTextBox"/>
@@ -43,9 +46,9 @@
         </RichTextBox>
 
 
-        <Button Content="Import" Margin="10,22,10,0" VerticalAlignment="Top" Click="ButtonImport_Click" IsEnabled="False" Name="ButtonImport"  />
+       
 
-        <DataGrid Grid.Column="2" Margin="23,62,10,10" Name="dg1"  CanUserSortColumns="False"   />
+        <DataGrid Grid.Column="2" Margin="23,62,10,10" Name="dg1"  CanUserSortColumns="False"  CanUserAddRows="False" />
         <Button   Grid.Column="2" Name="btnsave"  Content="Save for PipelineDesigner" IsEnabled="False" HorizontalAlignment="Left" Margin="23,22,0,0" VerticalAlignment="Top"  Click="Button_Click_1"/>
     </Grid>
 </Window>
