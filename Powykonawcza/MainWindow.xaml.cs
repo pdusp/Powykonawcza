@@ -49,6 +49,8 @@ namespace Powykonawcza
             System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
             //
+            lg = new List<RegGeoPoint>();
+            dg1.ItemsSource = null;
         }
 
 
@@ -56,27 +58,26 @@ namespace Powykonawcza
         private void ButtonImport_Click(object sender, RoutedEventArgs e)
         {
             //GetSzablon
+            btnsave.IsEnabled = false;
+            lg.Clear();
+            dg1.ItemsSource = null;
+            //dg1
+            //
             SzablonyImportu sz = new SzablonyImportu();
             sz.ShowDialog();
             ;
-
             List<SzablonItem> szablonItems;
-
             try
             {
                 szablonItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"SzablonImportu.dat");
                 szablonItems = szablonItems.Where(p => p.import == true).ToList();
-
             }
             catch
             {
                 return;
             }
-
-            //var szablonItems = sz.CurrentTemplate().ToList();
             ;
             int expectedColumns = szablonItems.Count();
-
             if (expectedColumns < 2)
             {
                 MessageBox.Show("Selected Template is empty");
@@ -106,7 +107,8 @@ namespace Powykonawcza
 
             foreach (string txtline in rtbLines)
             {
-                var objects = new Tokenizer().Parse(txtline);
+                string txt = txtline.Replace("\t", " ").Replace("\r", "");
+                var objects = new Tokenizer().Parse(txt);
                 if (objects.Tokens.Length != expectedColumns)
                 {
                     MessageBox.Show($"Line no: {objects.Tokens[0] } is not correct. Import break!");
@@ -115,7 +117,7 @@ namespace Powykonawcza
             }
             //
             //
-            lg = new List<RegGeoPoint>();
+           
             foreach (string txtline in rtbLines)
             {
                 RegGeoPoint point = new RegGeoPoint();
@@ -126,8 +128,10 @@ namespace Powykonawcza
                     if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "string"))
                     {
                         prop.SetValue(point, objects.Tokens[i].ToString(), null);
-                        //FieldInfo fi = point.GetType().GetField(szablonItems[i].nazwa.ToString(), BindingFlags.NonPublic | BindingFlags.Instance);
-                       // fi.SetValue(point, objects.Tokens[i].ToString());
+                    }
+                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "date"))
+                    {
+                        prop.SetValue(point, objects.Tokens[i].ToString(), null);
                     }
                     if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "numeric"))
                     {
@@ -137,7 +141,6 @@ namespace Powykonawcza
                     {
                         prop.SetValue(point, Int32.Parse(objects.Tokens[i].ToString()), null);
                     }
-
                 }
                 lg.Add(point);
             }
@@ -147,14 +150,35 @@ namespace Powykonawcza
             //lg.Add(new GeoPoint { id = 2, x = 5655.34M, y = 66500.12M, type = "SUPC_01", warning = "" });
             //lg.Add(new GeoPoint { id = 3, x = 5755.34M, y = 67500.12M, type = "SUPC_01", warning = "" });
 
+            //dg1.ItemsSource = lg;
+
+            if (lg.Count>0)
+            {
+                btnsave.IsEnabled = true;
+            }
             dg1.ItemsSource = lg;
 
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DrawiGeo dr = new DrawiGeo(lg);
-            dr.ShowDialog();
+            //DrawiGeo dr = new DrawiGeo(lg);
+            //dr.ShowDialog();
+
+            if (lg.Count<1)
+            {
+                MessageBox.Show("List of Geopoint is empty");
+                return;
+            }
+            try
+            {
+                JsonUtils.SaveJson(@"Geopoints.dat", lg);
+            }
+            catch
+            {
+                MessageBox.Show("Error: Save Problem!");
+            }
+            MessageBox.Show("Save Ok");
         }
 
 
@@ -166,20 +190,17 @@ namespace Powykonawcza
         private void MenuItem_ClickOpen(object sender, RoutedEventArgs e)
         {
             ButtonImport.IsEnabled = false;
+            lg.Clear();
+            btnsave.IsEnabled = false;
+            //
             richTextBox1.Document.Blocks.Clear();
-            MessageBox.Show("Please open file");
-
+            //
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
             openFileDialog.Filter = "Text files (*.txt)|*.txt|(*.rtf)|*.rtf|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
             {
-                //TextRange range = new TextRange(richTextBox1.FileName, richTextBox1.ContentEnd);
-                // FileStream fStream = new FileStream(openFileDialog, FileMode.Open, FileAccess.Read, FileShare.Read);
-                //range.Load(fStream, DataFormats.Rtf);
-                //fStream.Close();
-
                 string txt = File.ReadAllText(openFileDialog.FileName);
                 string ext = System.IO.Path.GetExtension(openFileDialog.FileName);
 
