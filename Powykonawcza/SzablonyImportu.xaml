@@ -12,6 +12,14 @@
         <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Esc" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed" />
+    </Window.CommandBindings>
+
 
     <Grid Margin="10,0,13,6">
 

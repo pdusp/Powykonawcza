@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using Microsoft.Win32;
 using System.Reflection;
+ 
 
 /*
 Do przeniesienia:
@@ -116,8 +117,6 @@ namespace Powykonawcza
                 }
             }
             //
-            //
-           
             foreach (string txtline in rtbLines)
             {
                 RegGeoPoint point = new RegGeoPoint();
