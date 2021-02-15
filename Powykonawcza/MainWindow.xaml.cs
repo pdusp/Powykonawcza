@@ -109,8 +109,7 @@ namespace Powykonawcza
                     return;
                 }
             }
-
-
+            //
             foreach (string txtline in rtbLines)
             {
                 string txt = txtline.Replace("\t", " ").Replace("\r", "");
