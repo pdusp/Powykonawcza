@@ -23,11 +23,12 @@
 
     <Grid Margin="10,0,13,6">
 
-        <Label Content="Nazwa Szablonu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="112,13,0,0" TextWrapping="Wrap" Text="Pomiary w terenie" VerticalAlignment="Top" Width="120"/>
 
-        <DataGrid  Name="gr1" Margin="4,41,0,4" RenderTransformOrigin="0.5,0.5" 
-          AutoGenerateColumns="False"  >
+        <Label Content="Nazwa Szablonu" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="106"/>
+        <TextBox IsReadOnly="True"   HorizontalAlignment="Left" Height="20" Margin="100,13,0,0" TextWrapping="Wrap" Text="Pomiary w terenie" VerticalAlignment="Top" Width="132"/>
+
+        <DataGrid  Name="gr1" Margin="4,41,0.6,4" RenderTransformOrigin="0.5,0.5" 
+          AutoGenerateColumns="False" CellEditEnding="gr1_CellEditEnding" Grid.ColumnSpan="2" BeginningEdit="gr1_BeginningEdit"   >
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}" IsReadOnly="True"    />
@@ -35,20 +36,18 @@
                 <DataGridTextColumn Header="inne" Binding="{Binding Path=inne}" IsReadOnly="True" />
                 <DataGridTextColumn Header="type" Binding="{Binding Path=type}" IsReadOnly="True" />
             </DataGrid.Columns>
-            
-            
+
+
 
             <DataGrid.ContextMenu>
-
                 <ContextMenu BorderBrush="Black" BorderThickness="1">
-
                     <MenuItem Header="&#8679;" Click="MenuItem_Clickup"/>
                     <MenuItem Header="&#8681;"  Click="MenuItem_Clickdown"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
 
         </DataGrid>
-        <Button Content="Zapisz" HorizontalAlignment="Left" Click="clik_zapisz" Margin="237,13,0,0" VerticalAlignment="Top" Width="62"/>
+        <Button Content="Zapisz" Height="20" Name="btnzapisz" HorizontalAlignment="Left" IsEnabled="False" Click="clik_zapisz" Margin="237,13,0,0" VerticalAlignment="Top" Width="62" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

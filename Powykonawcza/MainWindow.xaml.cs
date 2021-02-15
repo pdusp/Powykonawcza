@@ -61,11 +61,16 @@ namespace Powykonawcza
             //GetSzablon
             btnsave.IsEnabled = false;
             lg.Clear();
+            //
             dg1.ItemsSource = null;
+            dg1.Items.Clear();
+            dg1.Items.Refresh();
+            MessageBox.Show("Proszę czekać...");
+
             //dg1
             //
-            SzablonyImportu sz = new SzablonyImportu();
-            sz.ShowDialog();
+            //SzablonyImportu sz = new SzablonyImportu();
+            //sz.ShowDialog();
             ;
             List<SzablonItem> szablonItems;
             try
@@ -112,7 +117,7 @@ namespace Powykonawcza
                 var objects = new Tokenizer().Parse(txt);
                 if (objects.Tokens.Length != expectedColumns)
                 {
-                    MessageBox.Show($"Line no: {objects.Tokens[0] } is not correct. Import break!");
+                    MessageBox.Show($"Line no: {txt} is not correct. Import break!" );
                     return;
                 }
             }
@@ -194,6 +199,7 @@ namespace Powykonawcza
             btnsave.IsEnabled = false;
             //
             richTextBox1.Document.Blocks.Clear();
+            dg1.Items.Refresh();
             //
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;

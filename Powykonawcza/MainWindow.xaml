@@ -40,7 +40,7 @@
         <RichTextBox x:Name="richTextBox1" Margin="10,46,10,10">
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="RichTextBox"/>
+                    <Run Text="Otwórz plik Ctrl+O"/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
