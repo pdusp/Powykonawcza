@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="PrzykładyTXT\GK.6640.2865.2020_BDOT.txt" />
+    <None Remove="PrzykładyTXT\RG.6642.1.48.2020_GESUT.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iSukces.Parsers" Version="1.0.21045.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="16.7.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="1.3.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Powykonawcza\Powykonawcza.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationFramework">
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="PrzykładyTXT\GK.6640.2865.2020_BDOT.txt" />
+    <Resource Include="PrzykładyTXT\RG.6642.1.48.2020_GESUT.txt" />
+  </ItemGroup>
+
+</Project>
