@@ -5,6 +5,7 @@ using Powykonawcza.DAL;
 using Powykonawcza.Model;
 using Powykonawcza.Model.Szablon;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -103,6 +104,7 @@ namespace Powykonawcza
             rtbLines = rtbLines.Where(w => w.Length > 4).ToList();
             //
             //wstępna weryfikacja pliku
+            var start  = DateTime.Now;
             int lineNo = 0;
             foreach (string txtline in rtbLines)
             {
@@ -113,6 +115,10 @@ namespace Powykonawcza
                     return;
                 }
             }
+
+            Debug.WriteLine("Etap 1 {0} sek", (DateTime.Now - start).TotalSeconds);
+            
+            start = DateTime.Now;
             //
             foreach (string txtline in rtbLines)
             {
@@ -124,34 +130,41 @@ namespace Powykonawcza
                     return;
                 }
             }
+            Debug.WriteLine("Etap 2 {0} sek", (DateTime.Now - start).TotalSeconds);
+            
+            start = DateTime.Now;
             //
             foreach (string txtline in rtbLines)
             {
-                RegGeoPoint point = new RegGeoPoint();
+                var point = new RegGeoPoint();
                 var objects = new Tokenizer().Parse(txtline);//objects.Tokens
                 for (var i = 0; i < objects.Tokens.Length; i++)
                 {
-                    PropertyInfo prop = point.GetType().GetProperty(szablonItems[i].nazwa.ToString(), BindingFlags.Public | BindingFlags.Instance);
-                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "string"))
+                    var prop         = point.GetType().GetProperty(szablonItems[i].nazwa, BindingFlags.Public | BindingFlags.Instance);
+                    var          propCanWrite = null != prop && prop.CanWrite;
+                    if (!propCanWrite)
+                        continue;
+                    var tokenValue = objects.Tokens[i];
+                    switch (szablonItems[i].type)
                     {
-                        prop.SetValue(point, objects.Tokens[i].ToString(), null);
-                    }
-                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "date"))
-                    {
-                        prop.SetValue(point, objects.Tokens[i].ToString(), null);
-                    }
-                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "numeric"))
-                    {
-                        decimal dv = decimal.Parse(objects.Tokens[i].ToString().Replace(',', '.'));
-                        prop.SetValue(point, dv , null);
-                    }
-                    if (null != prop && prop.CanWrite && (szablonItems[i].type.ToString() == "integer"))
-                    {
-                        prop.SetValue(point, Int32.Parse(objects.Tokens[i].ToString()), null);
+                        case "string":
+                        case "date":
+                            prop.SetValue(point, tokenValue.ToString(), null);
+                            break;
+                        case "numeric":
+                        {
+                            var dv = decimal.Parse(tokenValue.ToString().Replace(',', '.'));
+                            prop.SetValue(point, dv , null);
+                            break;
+                        }
+                        case "integer":
+                            prop.SetValue(point, Int32.Parse(tokenValue.ToString()), null);
+                            break;
                     }
                 }
                 lg.Add(point);
             }
+            Debug.WriteLine("Etap 3 {0} sek", (DateTime.Now - start).TotalSeconds);
 
 
 
@@ -165,7 +178,7 @@ namespace Powykonawcza
                 btnsave.IsEnabled = true;
             }
             dg1.ItemsSource = lg;
-
+            MessageBox.Show($"Koniec" );
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
