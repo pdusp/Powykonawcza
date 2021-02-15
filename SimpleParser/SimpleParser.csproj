@@ -4,4 +4,8 @@
         <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="iSukces.Parsers" Version="1.0.21045.1" />
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,6 @@
-﻿using SimpleParser.TokenParsers;
+﻿//using SimpleParser.TokenParsers;
+using iSukces.Parsers;
+using iSukces.Parsers.TokenParsers;
 
 namespace Powykonawcza
 {
@@ -8,7 +10,7 @@ namespace Powykonawcza
         {
             var candidates = new ValueTokenizer[]
             {
-                new DoubleTokenizer(),
+                new DoubleTokenizer(NumerFlags.AllowLedingSpaces, ',', '.'),
                 new IntegerTokenizer(),
                 new StringNoSpaceTokenizer(),
                 new SingleQuoteStringTokenizer()
