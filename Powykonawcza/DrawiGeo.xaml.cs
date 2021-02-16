@@ -12,10 +12,10 @@ namespace Powykonawcza
     /// </summary>
     public partial class DrawiGeo : Window
     {
-        public DrawiGeo(List<RegGeoPoint> _l)
+        public DrawiGeo(List<RegGeoPoint> l)
         {
             InitializeComponent();
-            lg = _l;
+            _lg = l;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -23,12 +23,12 @@ namespace Powykonawcza
             var ofx = int.Parse(offx.Text);
             var ofy = int.Parse(offy.Text);
 
-            foreach (var p in lg)
+            foreach (var p in _lg)
             {
                 var ellipse = new Ellipse {Width = 1.5, Height = 1.5, Stroke = new SolidColorBrush(Colors.LightBlue)};
 
-                var x = (double)p.x - ofx;
-                var y = (double)p.y - ofy;
+                var x = (double)p.X - ofx;
+                var y = (double)p.Y - ofy;
                 DrawPoint(x, y);
             }
         }
@@ -48,6 +48,6 @@ namespace Powykonawcza
             canvas.Children.Add(currentDot);
         }
 
-        private readonly List<RegGeoPoint> lg;
+        private readonly List<RegGeoPoint> _lg;
     }
 }

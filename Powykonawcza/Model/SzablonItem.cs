@@ -36,25 +36,25 @@ namespace Powykonawcza.Model.Szablon
 
         public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne", "string");
 
-        public string name
+        public string Name
         {
             get => _name;
             set => SetAndNotify(ref _name, value);
         }
 
-        public bool import
+        public bool Import
         {
             get => _import;
             set => SetAndNotify(ref _import, value);
         }
 
-        public string other
+        public string Other
         {
             get => _other;
             set => SetAndNotify(ref _other, value);
         }
 
-        public string type
+        public string Type
         {
             get => _type;
             set => SetAndNotify(ref _type, value);

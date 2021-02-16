@@ -21,7 +21,7 @@ namespace Powykonawcza
         public SzablonyImportu()
         {
             InitializeComponent();
-            gr1.ItemsSource             =  populateSzablon();
+            gr1.ItemsSource             =  PopulateSzablon();
             GridItems.CollectionChanged += GridItems_CollectionChanged;
         }
 
@@ -31,7 +31,7 @@ namespace Powykonawcza
             var itemsSource = gr1.ItemsSource;
 
             for (var i = 0; i < GridItems.Count; i++)
-                if (GridItems[i].import)
+                if (GridItems[i].Import)
                     yield return GridItems[i];
         }
 
@@ -53,8 +53,8 @@ namespace Powykonawcza
             var itemsSource = gr1.ItemsSource;
             //
             foreach (var itm in GridItems)
-                if ((itm.name == "point" || itm.name == "x" || itm.name == "y" || itm.name == "h") &&
-                    itm.import == false)
+                if ((itm.Name == "point" || itm.Name == "x" || itm.Name == "y" || itm.Name == "h") &&
+                    itm.Import == false)
                 {
                     MessageBox.Show("Pola pkt,X,Y,Z są zawsze wymagane do importu");
                     return;
@@ -116,7 +116,7 @@ namespace Powykonawcza
 
             //int lp=l.Find((x => x.nazwa.Contains(itm.nazwa))).;
             for (var i = 0; i < GridItems.Count; i++)
-                if (GridItems[i].name == itm.name)
+                if (GridItems[i].Name == itm.Name)
                 {
                     if (i < GridItems.Count - 1)
                     {
@@ -152,7 +152,7 @@ namespace Powykonawcza
 
             //int lp=l.Find((x => x.nazwa.Contains(itm.nazwa))).;
             for (var i = 0; i < GridItems.Count; i++)
-                if (GridItems[i].name == itm.name)
+                if (GridItems[i].Name == itm.Name)
                 {
                     if (i > 0)
                     {
@@ -170,7 +170,7 @@ namespace Powykonawcza
             btnzapisz.IsEnabled = true;
         }
 
-        private ObservableCollection<SzablonItem> populateSzablon()
+        private ObservableCollection<SzablonItem> PopulateSzablon()
         {
             IFormatter formatter = new BinaryFormatter();
             //

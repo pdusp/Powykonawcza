@@ -5,48 +5,45 @@ namespace Powykonawcza.Model
     public class RegGeoPoint
     {
         [NotNull]
-        public string point { get; set; }
+        public string Point { get; set; }
 
-        [NotNull]
-        public decimal x { get; set; }
+        public decimal X { get; set; }
 
-        [NotNull]
-        public decimal y { get; set; }
+        public decimal Y { get; set; }
 
-        [NotNull]
-        public decimal h { get; set; }
+        public decimal H { get; set; }
 
         [CanBeNull]
-        public string code { get; set; }
+        public string Code { get; set; }
 
         [CanBeNull]
-        public string date { get; set; }
+        public string Date { get; set; }
 
         [CanBeNull]
-        public string mn { get; set; }
+        public string Mn { get; set; }
 
         [CanBeNull]
-        public string mh { get; set; }
+        public string Mh { get; set; }
 
         [CanBeNull]
-        public string mp { get; set; }
+        public string Mp { get; set; }
 
         [CanBeNull]
-        public int? e { get; set; }
+        public int? E { get; set; }
 
         [CanBeNull]
-        public int? sat { get; set; }
+        public int? Sat { get; set; }
 
         [CanBeNull]
-        public decimal? pdop { get; set; }
+        public decimal? Pdop { get; set; }
 
         [CanBeNull]
-        public decimal? heightPole { get; set; }
+        public decimal? PoleHeight { get; set; }
 
         [CanBeNull]
-        public string type { get; set; }
+        public string Type { get; set; }
 
         [CanBeNull]
-        public string warning { get; set; }
+        public string Warning { get; set; }
     }
 }

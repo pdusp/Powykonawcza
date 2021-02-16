@@ -52,14 +52,14 @@ namespace Powykonawcza
             LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
             //
-            lg              = new List<RegGeoPoint>();
+            Lg              = new List<RegGeoPoint>();
             dg1.ItemsSource = null;
         }
 
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (lg.Count < 1)
+            if (Lg.Count < 1)
             {
                 MessageBox.Show("List of Geopoint is empty");
                 return;
@@ -67,7 +67,7 @@ namespace Powykonawcza
 
             try
             {
-                JsonUtils.SaveJson(@"Geopoints.dat", lg);
+                JsonUtils.SaveJson(@"Geopoints.dat", Lg);
             }
             catch
             {
@@ -82,7 +82,7 @@ namespace Powykonawcza
         {
             //GetSzablon
             btnsave.IsEnabled = false;
-            lg.Clear();
+            Lg.Clear();
             //
             dg1.ItemsSource = null;
             dg1.Items.Clear();
@@ -98,7 +98,7 @@ namespace Powykonawcza
                     return;
                 }
 
-                tmpItems = tmpItems.Where(p => p.import).ToList();
+                tmpItems = tmpItems.Where(p => p.Import).ToList();
                 var textRange     = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
                 var importService = new GeoDataImportService(_progressService);
                 var points        = await importService.Import(tmpItems, textRange.Text);
@@ -121,7 +121,7 @@ namespace Powykonawcza
         private void MenuItem_ClickOpen(object sender, RoutedEventArgs e)
         {
             mn_Import.IsEnabled = false;
-            lg.Clear();
+            Lg.Clear();
             btnsave.IsEnabled = false;
             //
             richTextBox1.Document.Blocks.Clear();
@@ -159,7 +159,7 @@ namespace Powykonawcza
                 MenuItem_ClickOpen(null, null);
         }
 
-        public readonly List<RegGeoPoint> lg;
+        public readonly List<RegGeoPoint> Lg;
         private readonly IProgressService _progressService;
     }
 }

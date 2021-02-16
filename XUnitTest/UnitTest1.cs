@@ -40,7 +40,7 @@ namespace XUnitTest
                 //if (tmpItems is null)
                 //  MessageBox.Show("brak pliku SzablonImportu.dat");
 
-                tmpItems = tmpItems.Where(p => p.import).ToList();
+                tmpItems = tmpItems.Where(p => p.Import).ToList();
             }
             catch (Exception ex)
             {

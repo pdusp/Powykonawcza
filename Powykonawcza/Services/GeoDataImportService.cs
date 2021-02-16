@@ -56,7 +56,7 @@ namespace Powykonawcza.Services
             {
                 var templateItem = tmpItems[columnIdx];
                 props[columnIdx] =
-                    typeof(RegGeoPoint).GetProperty(templateItem.name, BindingFlags.Public | BindingFlags.Instance);
+                    typeof(RegGeoPoint).GetProperty(templateItem.Name, BindingFlags.Public | BindingFlags.Instance);
             }
 
             for (var index = 0; index < rtbLines.Length; index++)
@@ -77,7 +77,7 @@ namespace Powykonawcza.Services
                     if (!propCanWrite)
                         continue;
                     var tokenValue = objects.Tokens[columnIdx];
-                    switch (templateItem.type)
+                    switch (templateItem.Type)
                     {
                         case "string":
                         case "date":
