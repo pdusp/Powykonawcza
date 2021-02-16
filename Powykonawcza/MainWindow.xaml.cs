@@ -33,11 +33,12 @@ namespace Powykonawcza
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         public MainWindow()
         {
             InitializeComponent();
+            _progressService = new WpfProgressbarProgressService(MyProgressbar);
             //
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("pl-PL");
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
@@ -88,10 +89,9 @@ namespace Powykonawcza
             dg1.Items.Refresh();
             MessageBox.Show("Proszę czekać...");
 
-            List<SzablonItem> szablonItems;
             try
             {
-                szablonItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"SzablonImportu.dat");
+                var szablonItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"SzablonImportu.dat");
                 if (szablonItems is null)
                 {
                     MessageBox.Show("brak pliku SzablonImportu.dat");
@@ -100,7 +100,7 @@ namespace Powykonawcza
 
                 szablonItems = szablonItems.Where(p => p.import).ToList();
                 var textRange     = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
-                var importService = new GeoDataImportService();
+                var importService = new GeoDataImportService(_progressService);
                 var points        = await importService.Import(szablonItems, textRange.Text);
 
                 dg1.ItemsSource = points;
@@ -160,7 +160,8 @@ namespace Powykonawcza
                 MenuItem_ClickOpen(null, null);
         }
 
-        public List<RegGeoPoint> lg;
+        public readonly List<RegGeoPoint> lg;
+        private readonly IProgressService _progressService;
     }
 }
 
