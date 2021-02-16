@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace Powykonawcza.DAL.Extentions
+﻿namespace Powykonawcza.DAL.Extentions
 {
     /*public static void SetRtf(this RichTextBox rtb, string document)
     {

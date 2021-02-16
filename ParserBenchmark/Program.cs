@@ -15,7 +15,6 @@ namespace ParserBenchmark
             //var summary = BenchmarkRunner.Run<MathBenchmark>();
             // var summary = BenchmarkRunner.Run<PropertyGetterBenchmark>();
 
-            
             Console.WriteLine("stop");
         }
     }

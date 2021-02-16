@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="iSukces.Parsers" Version="1.0.21046.2" />
+    <PackageReference Include="iSukces.Parsers" Version="1.0.21047.3" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="Microsoft.CodeCoverage" Version="16.7.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />

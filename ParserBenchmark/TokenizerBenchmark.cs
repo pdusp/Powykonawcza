@@ -13,6 +13,5 @@ namespace ParserBenchmark
         {
             return Math.Sin(123);
         }
-
     }
 }

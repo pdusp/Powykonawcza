@@ -1,4 +1,5 @@
 ﻿//using SimpleParser.TokenParsers;
+
 using iSukces.Parsers;
 using iSukces.Parsers.TokenParsers;
 
@@ -19,4 +20,3 @@ namespace Powykonawcza
         }
     }
 }
-

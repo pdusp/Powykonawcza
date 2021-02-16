@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Input;
-using Powykonawcza.DAL;
-using Powykonawcza.Model;
-using Powykonawcza.Model.Szablon;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Markup;
 using Microsoft.Win32;
-using System.Reflection;
+using Powykonawcza.DAL;
+using Powykonawcza.Model;
+using Powykonawcza.Model.Szablon;
+using Powykonawcza.Services;
 
 
 /*
@@ -31,33 +31,53 @@ Wys. tyczki - wiadomo, ale zdarza się też używać pozycji wysokość anteny, 
 namespace Powykonawcza
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<RegGeoPoint> lg;
         public MainWindow()
         {
             InitializeComponent();
             //
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("pl-PL");
-            var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("pl-PL");
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var ci = new CultureInfo(currentCulture)
             {
-                NumberFormat = { NumberDecimalSeparator = "." },
-                DateTimeFormat = { DateSeparator = "/" }
+                NumberFormat   = {NumberDecimalSeparator = "."},
+                DateTimeFormat = {DateSeparator          = "/"}
             };
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            Thread.CurrentThread.CurrentCulture   = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+            LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
             //
-            lg = new List<RegGeoPoint>();
+            lg              = new List<RegGeoPoint>();
             dg1.ItemsSource = null;
         }
 
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (lg.Count < 1)
+            {
+                MessageBox.Show("List of Geopoint is empty");
+                return;
+            }
 
-        private void ButtonImport_Click(object sender, RoutedEventArgs e)
+            try
+            {
+                JsonUtils.SaveJson(@"Geopoints.dat", lg);
+            }
+            catch
+            {
+                MessageBox.Show("Error: Save Problem!");
+            }
+
+            MessageBox.Show("Save Ok");
+        }
+
+
+        private async void ButtonImport_Click(object sender, RoutedEventArgs e)
         {
             //GetSzablon
             btnsave.IsEnabled = false;
@@ -67,7 +87,7 @@ namespace Powykonawcza
             dg1.Items.Clear();
             dg1.Items.Refresh();
             MessageBox.Show("Proszę czekać...");
-            ;
+
             List<SzablonItem> szablonItems;
             try
             {
@@ -78,88 +98,24 @@ namespace Powykonawcza
                     return;
                 }
 
-                szablonItems = szablonItems.Where(p => p.import == true).ToList();
+                szablonItems = szablonItems.Where(p => p.import).ToList();
+                var textRange     = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
+                var importService = new GeoDataImportService();
+                var points        = await importService.Import(szablonItems, textRange.Text);
+
+                dg1.ItemsSource = points;
+                MessageBox.Show("Zadanie wykonane");
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message);
-                return;
             }
-            ;
-            int expectedColumns = szablonItems.Count();
-            if (expectedColumns < 2)
-            {
-                MessageBox.Show("Selected Template is empty");
-                return;
-            }
-
-            TextRange textRange = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
-            List<string> rtbLines = textRange.Text.Split('\n').ToList();
-            //czyszczenie z ewidentnie pustych linii 
-            rtbLines = rtbLines.Where(w => w.Length > 4).ToList();
-            var start  = DateTime.Now;
-            int lineNo = 0;
-            foreach (string txtline in rtbLines)
-            {
-                lineNo++;
-                if (txtline.Length < 10)
-                {
-                    MessageBox.Show($"LineNo: {lineNo} ->  {txtline } is not correct, too short. Import break!");
-                }
-            }
-
-            foreach (string txtline in rtbLines)
-            {
-                string txt = txtline.Replace("\t", " ").Replace("\r", "");
-                var objects = new Tokenizer().Parse(txt);
-                if (objects.Tokens.Length != expectedColumns)
-                {
-                    MessageBox.Show($"Line no: {txt} is not correct. Import break!");
-                }
-            }
-
-            List<RegGeoPoint> _lg = null;
-            try
-            {
-                _lg = DAL.Process.ProcessFile(szablonItems, rtbLines);
-                if (_lg.Count > 0)
-                {
-                    btnsave.IsEnabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            dg1.ItemsSource = _lg;
-            MessageBox.Show($"Zadanie wykonane");
-        }
-
-       
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (lg.Count < 1)
-            {
-                MessageBox.Show("List of Geopoint is empty");
-                return;
-            }
-            try
-            {
-                JsonUtils.SaveJson(@"Geopoints.dat", lg);
-            }
-            catch
-            {
-                MessageBox.Show("Error: Save Problem!");
-            }
-            MessageBox.Show("Save Ok");
         }
 
 
         private void MenuItem_ClickExit(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void MenuItem_ClickOpen(object sender, RoutedEventArgs e)
@@ -171,53 +127,42 @@ namespace Powykonawcza
             richTextBox1.Document.Blocks.Clear();
             dg1.Items.Refresh();
             //
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Text files (*.txt)|*.txt|(*.rtf)|*.rtf|All files (*.*)|*.*";
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect      = true;
+            openFileDialog.Filter           = "Text files (*.txt)|*.txt|(*.rtf)|*.rtf|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
             {
-                string txt = File.ReadAllText(openFileDialog.FileName);
-                string ext = System.IO.Path.GetExtension(openFileDialog.FileName);
+                var txt = File.ReadAllText(openFileDialog.FileName);
+                var ext = Path.GetExtension(openFileDialog.FileName);
 
-                MemoryStream stream = new MemoryStream(Encoding.Default.GetBytes(txt));
+                var stream = new MemoryStream(Encoding.Default.GetBytes(txt));
 
-                if (ext.ToLower() == ".rtf")
-                {
-                    richTextBox1.Selection.Load(stream, DataFormats.Rtf);
-                }
+                if (ext.ToLower() == ".rtf") richTextBox1.Selection.Load(stream, DataFormats.Rtf);
 
-                if (ext.ToLower() == ".txt")
-                {
-                    richTextBox1.Selection.Load(stream, DataFormats.Text);
-                }
+                if (ext.ToLower() == ".txt") richTextBox1.Selection.Load(stream, DataFormats.Text);
 
                 mn_Import.IsEnabled = true;
-
-            }
-
-        }
-
-
-
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.O)) // This will capture the Ctrl+O shortcut.
-            {
-                MenuItem_ClickOpen(null, null);
             }
         }
 
         private void MenuSzablonyImportu(object sender, RoutedEventArgs e)
         {
-            SzablonyImportu sz = new SzablonyImportu();
+            var sz = new SzablonyImportu();
             sz.ShowDialog();
         }
 
 
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.O)
+            ) // This will capture the Ctrl+O shortcut.
+                MenuItem_ClickOpen(null, null);
+        }
+
+        public List<RegGeoPoint> lg;
     }
 }
-
 
 
 /*

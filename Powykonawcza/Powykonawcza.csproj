@@ -40,8 +40,8 @@
     <WarningsAsErrors>105,108,1570,1572,1574,1587,162,168,169,1718,1734,219,414,628,649,693</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="iSukces.Parsers, Version=1.0.21046.2, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\iSukces.Parsers.1.0.21046.2\lib\net47\iSukces.Parsers.dll</HintPath>
+    <Reference Include="iSukces.Parsers, Version=1.0.21047.3, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\iSukces.Parsers.1.0.21047.3\lib\net47\iSukces.Parsers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=2020.3.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
@@ -71,13 +71,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\JsonUtils.cs" />
-    <Compile Include="DAL\Process.cs" />
     <Compile Include="Model\SzablonItem.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\GeoDataImportService.cs" />
+    <Compile Include="Services\IGeoDataImportService.cs" />
     <Compile Include="SzablonyImportu.xaml.cs">
       <DependentUpon>SzablonyImportu.xaml</DependentUpon>
     </Compile>
@@ -142,8 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ToDo.txt" />
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

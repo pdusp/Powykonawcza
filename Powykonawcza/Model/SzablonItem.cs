@@ -12,7 +12,7 @@ namespace Powykonawcza.Model.Szablon
             _nazwa  = nazwa;
             _import = import;
             _inne   = inne;
-            _type = type;
+            _type   = type;
         }
 
         protected void SetAndNotify<T>(ref T backField,
@@ -34,7 +34,7 @@ namespace Powykonawcza.Model.Szablon
         }
 
 
-        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne","string");
+        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne", "string");
 
         public string nazwa
         {
