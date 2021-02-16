@@ -1,0 +1,50 @@
+{
+  "ExcludeDll": [],
+  "ForceBindingRedirects": {
+    "System.Runtime": "4.3.0",
+    "System.Runtime.InteropServices.RuntimeInformation": "4.0.2.0"
+  },
+  "RemoveBindingRedirect": [
+    "A_System.Net.Http.Formatting",
+    "A_System.Net.Http",
+    "System.IO.Compression",
+    "isukces.Math"
+  ],
+  "NoWarn": {
+    "1591": "Add",
+    "1573": "Add",
+    "618": "Add"
+  },
+  "WarningsAsErrors": {
+    "108": "Add",
+    "414": "Add",
+    "162": "Add",
+    "168": "Add",
+    "169": "Add",
+    "219": "Add",
+    "628": "Add",
+    "649": "Add",
+    "693": "Add",
+    "1570": "Add",
+    "1587": "Add",
+    "1572": "Add",
+    "1574": "Add",
+    "1718": "Add",
+    "1734": "Add",
+    "169219": "Remove",
+    "105": "Add",
+  },
+  "ScanDirectories": [
+    ".\\"
+  ],
+  "ExcludeDirectories": [],
+  "ExcludeSolutions": [],
+  "SkippedRules": [
+    {
+      "Rule": "XamlInCsProjChecker",
+      "Project": "app\\Test\\Test.csproj"
+    }
+  ],
+  "Fix": true,
+  "PackagesVersion": {}
+}

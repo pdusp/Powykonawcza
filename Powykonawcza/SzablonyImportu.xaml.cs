@@ -53,10 +53,10 @@ namespace Powykonawcza
             //
             try
             {
-                var GridItems = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"SzablonImportu.dat");
-                if (GridItems is null || GridItems.Count == 0) { throw new ArgumentException("GridItems cannot be null"); }
-                this.GridItems = GridItems;
-                return GridItems;
+                var items = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"SzablonImportu.dat");
+                if (items is null || items.Count == 0) { throw new ArgumentException("GridItems cannot be null"); }
+                this.GridItems = items;
+                return items;
             }
             catch
             {
@@ -180,7 +180,7 @@ namespace Powykonawcza
             //
             foreach (var itm in GridItems)
             {
-                if (((itm.nazwa == "pkt") || (itm.nazwa == "x") || (itm.nazwa == "y") || (itm.nazwa == "h")) && (itm.import == false))
+                if ((itm.nazwa == "pkt" || itm.nazwa == "x" || itm.nazwa == "y" || itm.nazwa == "h") && itm.import == false)
                 {
                     MessageBox.Show("Pola pkt,X,Y,Z są zawsze wymagane do importu");
                     return;

@@ -78,8 +78,11 @@ namespace Powykonawcza
             {
                 szablonItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"SzablonImportu.dat");
                 if (szablonItems is null)
+                {
                     MessageBox.Show("brak pliku SzablonImportu.dat");
-                    
+                    return;
+                }
+
                 szablonItems = szablonItems.Where(p => p.import == true).ToList();
             }
             catch  (Exception ee)

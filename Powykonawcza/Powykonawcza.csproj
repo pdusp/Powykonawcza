@@ -25,6 +25,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1573,1591,618</NoWarn>
+    <WarningsAsErrors>105,108,1570,1572,1574,1587,162,168,169,1718,1734,219,414,628,649,693</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,10 +36,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1573,1591,618</NoWarn>
+    <WarningsAsErrors>105,108,1570,1572,1574,1587,162,168,169,1718,1734,219,414,628,649,693</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="iSukces.Parsers, Version=1.0.21045.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\iSukces.Parsers.1.0.21045.1\lib\net47\iSukces.Parsers.dll</HintPath>
+    <Reference Include="iSukces.Parsers, Version=1.0.21046.2, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\iSukces.Parsers.1.0.21046.2\lib\net47\iSukces.Parsers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=2020.3.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.2020.3.0\lib\net20\JetBrains.Annotations.dll</HintPath>
