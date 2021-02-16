@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using Microsoft.Win32;
 using Powykonawcza;
 using Powykonawcza.DAL;
 using Powykonawcza.Model.Szablon;
@@ -25,36 +27,35 @@ namespace XUnitTest
         public void ImportTXT()
         {
             List<SzablonItem> szablonItems;
+            string projectDirectory;
             try
             {
+                string path = Directory.GetCurrentDirectory();
+                System.Console.WriteLine("The current directory is {0}", path);
+                string workingDirectory = Environment.CurrentDirectory;
+                projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName.Replace("\\bin", "\\PrzykładyTXT");
+
                 szablonItems =
-                    JsonUtils.LoadJsonFile<List<SzablonItem>>(@".\PrzykladyTXT\Szablony\SzablonImportuTXT1.dat");
+                    JsonUtils.LoadJsonFile<List<SzablonItem>>(projectDirectory+ @"\Szablony\SzablonImportuTXT1.dat");
                 //if (szablonItems is null)
                 //  MessageBox.Show("brak pliku SzablonImportu.dat");
 
                 szablonItems = szablonItems.Where(p => p.import).ToList();
             }
-            catch
+            catch (Exception ex)
             {
-                //Exception ee
-                //MessageBox.Show(ee.Message);
-                return;
+                throw new InvalidCastException(ex.Message);
             }
 
+            //Assert.Equal(1, 2);
             ;
             var expectedColumns = szablonItems.Count();
             if (expectedColumns < 4)
-                //MessageBox.Show("Selected Template is empty");
-                return;
+                Assert.Equal(4, expectedColumns);
 
-            var richTextBox1 = new RichTextBox();
 
-            //trzeba załadowac do RichTextBox
-
-            //richTextBox1.Selection.Load(stream, DataFormats.Rtf); 
-
-            var textRange = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
-            var rtbLines  = textRange.Text.Split('\n').ToList();
+            string filePath = projectDirectory + @"\GK.6640.2865.2020_BDOT.txt";
+            var rtbLines  =   System.IO.File.ReadLines(filePath).ToList();
             //czyszczenie z ewidentnie pustych linii 
             rtbLines = rtbLines.Where(w => w.Length > 4).ToList();
 
@@ -64,7 +65,7 @@ namespace XUnitTest
                 lineNo++;
                 if (txtline.Length < 10)
                 {
-                    //MessageBox.Show($"LineNo: {lineNo} ->  {txtline } is not correct, too short. Import break!");
+                    Assert.Equal(10, txtline.Length);
                 }
             }
 
@@ -74,9 +75,11 @@ namespace XUnitTest
                 var objects = new Tokenizer().Parse(txt);
                 if (objects.Tokens.Length != expectedColumns)
                 {
-                    // MessageBox.Show($"Line no: {txt} is not correct. Import break!");
+                    Assert.Equal(objects.Tokens.Length, expectedColumns);
                 }
             }
+
+      
         }
     }
 }
