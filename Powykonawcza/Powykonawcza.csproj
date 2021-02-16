@@ -98,6 +98,8 @@
     </Compile>
     <Compile Include="Services\GeoDataImportService.cs" />
     <Compile Include="Services\IGeoDataImportService.cs" />
+    <Compile Include="Services\IImport.cs" />
+    <Compile Include="Services\Import.cs" />
     <Compile Include="Services\IProgressService.cs" />
     <Compile Include="Services\WpfProgressbarProgressService.cs" />
     <Compile Include="TemplateImport.xaml.cs">
