@@ -14,7 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using Microsoft.Win32;
 using System.Reflection;
- 
+
 
 /*
 Do przeniesienia:
@@ -67,11 +67,6 @@ namespace Powykonawcza
             dg1.Items.Clear();
             dg1.Items.Refresh();
             MessageBox.Show("Proszę czekać...");
-
-            //dg1
-            //
-            //SzablonyImportu sz = new SzablonyImportu();
-            //sz.ShowDialog();
             ;
             List<SzablonItem> szablonItems;
             try
@@ -85,7 +80,7 @@ namespace Powykonawcza
 
                 szablonItems = szablonItems.Where(p => p.import == true).ToList();
             }
-            catch  (Exception ee)
+            catch (Exception ee)
             {
                 MessageBox.Show(ee.Message);
                 return;
@@ -98,15 +93,10 @@ namespace Powykonawcza
                 return;
             }
 
-            //RawDate
-            //StringCollection lines = Import.GetLinesCollectionFromTextBox(richTextBox1);
-            //StringCollection lines = 
             TextRange textRange = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
             List<string> rtbLines = textRange.Text.Split('\n').ToList();
-            //czyszczenie z pustych linii 
+            //czyszczenie z ewidentnie pustych linii 
             rtbLines = rtbLines.Where(w => w.Length > 4).ToList();
-            //
-            //wstępna weryfikacja pliku
             var start  = DateTime.Now;
             int lineNo = 0;
             foreach (string txtline in rtbLines)
@@ -115,81 +105,42 @@ namespace Powykonawcza
                 if (txtline.Length < 10)
                 {
                     MessageBox.Show($"LineNo: {lineNo} ->  {txtline } is not correct, too short. Import break!");
-                    return;
                 }
             }
 
-            Debug.WriteLine("Etap 1 {0} sek", (DateTime.Now - start).TotalSeconds);
-            
-            start = DateTime.Now;
-            //
             foreach (string txtline in rtbLines)
             {
                 string txt = txtline.Replace("\t", " ").Replace("\r", "");
                 var objects = new Tokenizer().Parse(txt);
                 if (objects.Tokens.Length != expectedColumns)
                 {
-                    MessageBox.Show($"Line no: {txt} is not correct. Import break!" );
-                    return;
+                    MessageBox.Show($"Line no: {txt} is not correct. Import break!");
                 }
             }
-            Debug.WriteLine("Etap 2 {0} sek", (DateTime.Now - start).TotalSeconds);
-            
-            start = DateTime.Now;
-            //
-            foreach (string txtline in rtbLines)
+
+            List<RegGeoPoint> _lg = null;
+            try
             {
-                var point = new RegGeoPoint();
-                var objects = new Tokenizer().Parse(txtline);//objects.Tokens
-                for (var i = 0; i < objects.Tokens.Length; i++)
+                _lg = DAL.Process.ProcessFile(szablonItems, rtbLines);
+                if (_lg.Count > 0)
                 {
-                    var prop         = point.GetType().GetProperty(szablonItems[i].nazwa, BindingFlags.Public | BindingFlags.Instance);
-                    var          propCanWrite = null != prop && prop.CanWrite;
-                    if (!propCanWrite)
-                        continue;
-                    var tokenValue = objects.Tokens[i];
-                    switch (szablonItems[i].type)
-                    {
-                        case "string":
-                        case "date":
-                            prop.SetValue(point, tokenValue.ToString(), null);
-                            break;
-                        case "numeric":
-                        {
-                            var dv = decimal.Parse(tokenValue.ToString().Replace(',', '.'));
-                            prop.SetValue(point, dv , null);
-                            break;
-                        }
-                        case "integer":
-                            prop.SetValue(point, Int32.Parse(tokenValue.ToString()), null);
-                            break;
-                    }
+                    btnsave.IsEnabled = true;
                 }
-                lg.Add(point);
             }
-            Debug.WriteLine("Etap 3 {0} sek", (DateTime.Now - start).TotalSeconds);
-
-
-
-            //lg.Add(new GeoPoint { id = 2, x = 5655.34M, y = 66500.12M, type = "SUPC_01", warning = "" });
-            //lg.Add(new GeoPoint { id = 3, x = 5755.34M, y = 67500.12M, type = "SUPC_01", warning = "" });
-
-            //dg1.ItemsSource = lg;
-
-            if (lg.Count>0)
+            catch (Exception ex)
             {
-                btnsave.IsEnabled = true;
+                MessageBox.Show(ex.Message);
             }
-            dg1.ItemsSource = lg;
-            MessageBox.Show($"Koniec" );
+
+            dg1.ItemsSource = _lg;
+            MessageBox.Show($"Zadanie wykonane");
         }
+
+       
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //DrawiGeo dr = new DrawiGeo(lg);
-            //dr.ShowDialog();
-
-            if (lg.Count<1)
+            if (lg.Count < 1)
             {
                 MessageBox.Show("List of Geopoint is empty");
                 return;
