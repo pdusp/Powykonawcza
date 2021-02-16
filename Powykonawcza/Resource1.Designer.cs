@@ -63,38 +63,38 @@ namespace Powykonawcza {
         /// <summary>
         ///   Looks up a localized string similar to [
         ///  {
-        ///    &quot;nazwa&quot;: &quot;pkt&quot;,
+        ///    &quot;name&quot;: &quot;point&quot;,
         ///    &quot;import&quot;: true,
-        ///    &quot;Inne&quot;: &quot;numer Punktu&quot;
+        ///    &quot;other&quot;: &quot;numer Punktu&quot;
         ///  },
         ///  {
-        ///    &quot;nazwa&quot;: &quot;x&quot;,
+        ///    &quot;name&quot;: &quot;x&quot;,
         ///    &quot;import&quot;: true,
-        ///    &quot;Inne&quot;: &quot;współrzędna X&quot;
+        ///    &quot;other&quot;: &quot;współrzędna X&quot;
         ///  },
         ///  {
-        ///    &quot;nazwa&quot;: &quot;y&quot;,
+        ///    &quot;name&quot;: &quot;y&quot;,
         ///    &quot;import&quot;: true,
-        ///    &quot;Inne&quot;: &quot;współrzędna Y&quot;
+        ///    &quot;other&quot;: &quot;współrzędna Y&quot;
         ///  },
         ///  {
-        ///    &quot;nazwa&quot;: &quot;z&quot;,
+        ///    &quot;name&quot;: &quot;z&quot;,
         ///    &quot;import&quot;: true,
-        ///    &quot;Inne&quot;: &quot;wysokość H&quot;
+        ///    &quot;other&quot;: &quot;wysokość H&quot;
         ///  },
         ///  {
-        ///    &quot;nazwa&quot;: &quot;data&quot;,
+        ///    &quot;name&quot;: &quot;date&quot;,
         ///    &quot;import&quot;: false,
-        ///    &quot;Inne&quot;: &quot;data pomiaru&quot;
+        ///    &quot;other&quot;: &quot;data pomiaru&quot;
         ///  },
         ///  {
-        ///    &quot;nazwa&quot;: &quot;kod&quot;,
+        ///    &quot;name&quot;: &quot;code&quot;,
         ///    &quot;import&quot;: false,
-        ///    &quot;Inne&quot;: &quot;&quot;
+        ///    &quot;other&quot;: &quot;&quot;
         ///  },
         ///  {
-        ///    &quot;nazwa&quot;: &quot;mn&quot;,
-        ///    &quot;import&quot;: [rest of string was truncated]&quot;;.
+        ///    &quot;name&quot;: &quot;mn&quot;,
+        ///    &quot;import [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SzablonImportu {
             get {

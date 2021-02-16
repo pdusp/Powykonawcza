@@ -26,21 +26,21 @@ namespace XUnitTest
         [Fact]
         public void ImportTXT()
         {
-            List<SzablonItem> szablonItems;
+            List<SzablonItem> tmpItems;
             string projectDirectory;
             try
             {
                 string path = Directory.GetCurrentDirectory();
                 System.Console.WriteLine("The current directory is {0}", path);
                 string workingDirectory = Environment.CurrentDirectory;
-                projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName.Replace("\\bin", "\\PrzykładyTXT");
+                projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName.Replace("\\bin", "\\ExamplesTXT");
 
-                szablonItems =
-                    JsonUtils.LoadJsonFile<List<SzablonItem>>(projectDirectory+ @"\Szablony\SzablonImportuTXT1.dat");
-                //if (szablonItems is null)
+                tmpItems =
+                    JsonUtils.LoadJsonFile<List<SzablonItem>>(projectDirectory+ @"\Szablony\TemplateImportuTXT1.dat");
+                //if (tmpItems is null)
                 //  MessageBox.Show("brak pliku SzablonImportu.dat");
 
-                szablonItems = szablonItems.Where(p => p.import).ToList();
+                tmpItems = tmpItems.Where(p => p.import).ToList();
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace XUnitTest
 
             //Assert.Equal(1, 2);
             ;
-            var expectedColumns = szablonItems.Count();
+            var expectedColumns = tmpItems.Count();
             if (expectedColumns < 4)
                 Assert.Equal(4, expectedColumns);
 

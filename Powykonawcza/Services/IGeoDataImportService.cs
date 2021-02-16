@@ -7,6 +7,6 @@ namespace Powykonawcza.Services
 {
     public interface IGeoDataImportService
     {
-        Task<IList<RegGeoPoint>> Import(IReadOnlyList<SzablonItem> szablonItems, string text);
+        Task<IList<RegGeoPoint>> Import(IReadOnlyList<SzablonItem> tmpItems, string text);
     }
 }

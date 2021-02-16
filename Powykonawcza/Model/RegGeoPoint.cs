@@ -5,7 +5,7 @@ namespace Powykonawcza.Model
     public class RegGeoPoint
     {
         [NotNull]
-        public string pkt { get; set; }
+        public string point { get; set; }
 
         [NotNull]
         public decimal x { get; set; }
@@ -17,10 +17,10 @@ namespace Powykonawcza.Model
         public decimal h { get; set; }
 
         [CanBeNull]
-        public string kod { get; set; }
+        public string code { get; set; }
 
         [CanBeNull]
-        public string data { get; set; }
+        public string date { get; set; }
 
         [CanBeNull]
         public string mn { get; set; }
@@ -41,10 +41,10 @@ namespace Powykonawcza.Model
         public decimal? pdop { get; set; }
 
         [CanBeNull]
-        public decimal? wys_tyczki { get; set; }
+        public decimal? heightPole { get; set; }
 
         [CanBeNull]
-        public string typ { get; set; }
+        public string type { get; set; }
 
         [CanBeNull]
         public string warning { get; set; }

@@ -31,9 +31,9 @@
           AutoGenerateColumns="False" CellEditEnding="gr1_CellEditEnding" Grid.ColumnSpan="2" BeginningEdit="gr1_BeginningEdit"   >
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="nazwa" Binding="{Binding Path=nazwa}" IsReadOnly="True"    />
+                <DataGridTextColumn Header="name" Binding="{Binding Path=name}" IsReadOnly="True"    />
                 <DataGridCheckBoxColumn Header="import" Binding="{Binding Path=import}"  />
-                <DataGridTextColumn Header="inne" Binding="{Binding Path=inne}" IsReadOnly="True" />
+                <DataGridTextColumn Header="other" Binding="{Binding Path=other}" IsReadOnly="True" />
                 <DataGridTextColumn Header="type" Binding="{Binding Path=type}" IsReadOnly="True" />
             </DataGrid.Columns>
 

@@ -120,74 +120,74 @@
   <data name="SzablonImportu" xml:space="preserve">
     <value>[
   {
-    "nazwa": "pkt",
+    "name": "point",
     "import": true,
-    "Inne": "numer Punktu"
+    "other": "numer Punktu"
   },
   {
-    "nazwa": "x",
+    "name": "x",
     "import": true,
-    "Inne": "współrzędna X"
+    "other": "współrzędna X"
   },
   {
-    "nazwa": "y",
+    "name": "y",
     "import": true,
-    "Inne": "współrzędna Y"
+    "other": "współrzędna Y"
   },
   {
-    "nazwa": "z",
+    "name": "z",
     "import": true,
-    "Inne": "wysokość H"
+    "other": "wysokość H"
   },
   {
-    "nazwa": "data",
+    "name": "date",
     "import": false,
-    "Inne": "data pomiaru"
+    "other": "data pomiaru"
   },
   {
-    "nazwa": "kod",
+    "name": "code",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "mn",
+    "name": "mn",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "mh",
+    "name": "mh",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "mp",
+    "name": "mp",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "e",
+    "name": "e",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "sat",
+    "name": "sat",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "pdop",
+    "name": "pdop",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "wys_tyczki",
+    "name": "heightPole",
     "import": false,
-    "Inne": ""
+    "other": ""
   },
   {
-    "nazwa": "typ",
+    "name": "typ",
     "import": false,
-    "Inne": ""
+    "other": ""
   }
 ]</value>
   </data>

@@ -91,17 +91,17 @@ namespace Powykonawcza
 
             try
             {
-                var szablonItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"SzablonImportu.dat");
-                if (szablonItems is null)
+                var tmpItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"TempImport.dat");
+                if (tmpItems is null)
                 {
-                    MessageBox.Show("brak pliku SzablonImportu.dat");
+                    MessageBox.Show("brak pliku TempImport.dat");
                     return;
                 }
 
-                szablonItems = szablonItems.Where(p => p.import).ToList();
+                tmpItems = tmpItems.Where(p => p.import).ToList();
                 var textRange     = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
                 var importService = new GeoDataImportService(_progressService);
-                var points        = await importService.Import(szablonItems, textRange.Text);
+                var points        = await importService.Import(tmpItems, textRange.Text);
 
                 dg1.ItemsSource = points;
                 MessageBox.Show("Zadanie wykonane");
@@ -139,7 +139,6 @@ namespace Powykonawcza
                 var stream = new MemoryStream(Encoding.Default.GetBytes(txt));
 
                 if (ext.ToLower() == ".rtf") richTextBox1.Selection.Load(stream, DataFormats.Rtf);
-
                 if (ext.ToLower() == ".txt") richTextBox1.Selection.Load(stream, DataFormats.Text);
 
                 mn_Import.IsEnabled = true;
@@ -165,61 +164,3 @@ namespace Powykonawcza
     }
 }
 
-
-/*
- if (string.IsNullOrWhiteSpace(line)) { continue; }
-                //regex example: @"^\s*(\d+)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)(\s+.*)?$";
-                const string FilterFilter = @"^\s*(\d+)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)\s+(\d+(?:[\.,]\d+)?)(\s+.*)?$";
-                Regex f = new Regex(FilterFilter, RegexOptions.Multiline | RegexOptions.Compiled);
-                string pkt = "";
-                decimal x = 0, y = 0, h = 0;
-                string typ = "", warning = "";
-                //id = Int32.Parse(f[1]);
-                // 
-                string[] result = Regex.Split(line, FilterFilter, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(500));
-                //int val;
-                decimal vald;
-                bool success = true;
-
-                if (result.Length > 5)
-                {
-                    //success = Int32.TryParse(result[1], out val);
-                    if (result[1].Length < 1)
-                    { warning += "Błąd id"; }
-                    else
-                    {
-                        pkt = result[1];
-                    }
-                    //
-                    success = Decimal.TryParse(result[2].Replace('.', ','), out vald);
-                    if (!success)
-                    { warning += "Błąd x"; }
-                    else
-                    {
-                        x = vald;
-                    }
-                    //
-                    success = Decimal.TryParse(result[3].Replace('.', ','), out vald);
-                    if (!success)
-                    { warning += "Błąd y"; }
-                    else
-                    {
-                        y = vald;
-                    }
-                    //
-                    success = Decimal.TryParse(result[4].Replace('.', ','), out vald);
-                    if (!success)
-                    { warning += "Błąd h"; }
-                    else
-                    {
-                        h = vald;
-                    }
-                    //
-                    typ = result[5];
-                    //
-                }
-                else
-                {
-                    warning = "Błędne dane";
-                } 
- */

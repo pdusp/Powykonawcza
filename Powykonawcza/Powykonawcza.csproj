@@ -100,8 +100,8 @@
     <Compile Include="Services\IGeoDataImportService.cs" />
     <Compile Include="Services\IProgressService.cs" />
     <Compile Include="Services\WpfProgressbarProgressService.cs" />
-    <Compile Include="SzablonyImportu.xaml.cs">
-      <DependentUpon>SzablonyImportu.xaml</DependentUpon>
+    <Compile Include="TemplateImport.xaml.cs">
+      <DependentUpon>TemplateImport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tokenizer.cs" />
     <Page Include="DrawiGeo.xaml">
@@ -125,7 +125,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SzablonyImportu.xaml">
+    <Page Include="TemplateImport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,6 +152,7 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

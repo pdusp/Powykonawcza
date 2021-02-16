@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PrzykładyTXT\GK.6640.2865.2020_BDOT.txt" />
-    <None Remove="PrzykładyTXT\RG.6642.1.48.2020_GESUT.txt" />
+    <None Remove="ExamplesTXT\GK.6640.2865.2020_BDOT.txt" />
+    <None Remove="ExamplesTXT\RG.6642.1.48.2020_GESUT.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,8 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="PrzykładyTXT\GK.6640.2865.2020_BDOT.txt" />
-    <Resource Include="PrzykładyTXT\RG.6642.1.48.2020_GESUT.txt" />
+    <Resource Include="ExamplesTXT\GK.6640.2865.2020_BDOT.txt" />
+    <Resource Include="ExamplesTXT\RG.6642.1.48.2020_GESUT.txt" />
   </ItemGroup>
 
 </Project>

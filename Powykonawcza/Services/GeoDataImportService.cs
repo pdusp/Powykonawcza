@@ -17,19 +17,21 @@ namespace Powykonawcza.Services
             _progressService = progressService;
         }
 
-        public Task<IList<RegGeoPoint>> Import([NotNull] IReadOnlyList<SzablonItem> szablonItems,
+        public Task<IList<RegGeoPoint>> Import([NotNull] IReadOnlyList<SzablonItem> tmpItems,
             [NotNull] string text)
         {
-            if (szablonItems == null) throw new ArgumentNullException(nameof(szablonItems));
+            if (tmpItems == null) throw new ArgumentNullException(nameof(tmpItems));
             if (text == null) throw new ArgumentNullException(nameof(text));
-            if (szablonItems.Count < 2)
+            if (tmpItems.Count < 2)
                 throw new Exception("Empty import template");
-            return Task.Run(() => ImportInternal(szablonItems, text));
+            return Task.Run(() => ImportInternal(tmpItems, text));
         }
 
-        private IList<RegGeoPoint> ImportInternal(IReadOnlyList<SzablonItem> szablonItems, string text)
+        private IList<RegGeoPoint> ImportInternal(IReadOnlyList<SzablonItem> tmpItems, string text)
         {
-            var expectedColumns = szablonItems.Count;
+            int lineno = 0;
+            lineno++;
+            var expectedColumns = tmpItems.Count;
             var rtbLines = text.Split('\r', '\n')
                 .Where(a => !string.IsNullOrWhiteSpace(a))
                 .ToArray();
@@ -52,9 +54,9 @@ namespace Powykonawcza.Services
             var props = new PropertyInfo[expectedColumns];
             for (var columnIdx = 0; columnIdx < expectedColumns; columnIdx++)
             {
-                var templateItem = szablonItems[columnIdx];
+                var templateItem = tmpItems[columnIdx];
                 props[columnIdx] =
-                    typeof(RegGeoPoint).GetProperty(templateItem.nazwa, BindingFlags.Public | BindingFlags.Instance);
+                    typeof(RegGeoPoint).GetProperty(templateItem.name, BindingFlags.Public | BindingFlags.Instance);
             }
 
             for (var index = 0; index < rtbLines.Length; index++)
@@ -69,7 +71,7 @@ namespace Powykonawcza.Services
                 var objects = new Tokenizer().Parse(txtline);
                 for (var columnIdx = 0; columnIdx < objects.Tokens.Length; columnIdx++)
                 {
-                    var templateItem = szablonItems[columnIdx];
+                    var templateItem = tmpItems[columnIdx];
                     var prop         = props[columnIdx];
                     var propCanWrite = null != prop && prop.CanWrite;
                     if (!propCanWrite)
