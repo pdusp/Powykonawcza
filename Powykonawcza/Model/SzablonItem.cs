@@ -7,7 +7,15 @@ namespace Powykonawcza.Model.Szablon
     [Serializable]
     public class SzablonItem : INotifyPropertyChanged
     {
-        public SzablonItem(string name, bool import, string other, string type)
+        public enum GeoType
+        {
+            String,
+            Integer,
+            Date,
+            Numeric
+        }
+
+        public SzablonItem(string name, bool import, string other, GeoType type)
         {
             _name  = name;
             _import = import;
@@ -34,7 +42,7 @@ namespace Powykonawcza.Model.Szablon
         }
 
 
-        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne", "string");
+        public static SzablonItem SampleInstance { get; } = new SzablonItem("Blabla", true, "inne", GeoType.String);
 
         public string Name
         {
@@ -54,7 +62,7 @@ namespace Powykonawcza.Model.Szablon
             set => SetAndNotify(ref _other, value);
         }
 
-        public string Type
+        public GeoType Type
         {
             get => _type;
             set => SetAndNotify(ref _type, value);
@@ -63,7 +71,7 @@ namespace Powykonawcza.Model.Szablon
         private string _name;
         private bool _import;
         private string _other;
-        private string _type;
+        private GeoType _type;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\JsonUtils.cs" />
+    <Compile Include="DAL\TemplateOperation.cs" />
     <Compile Include="Model\SzablonItem.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -101,7 +102,9 @@
     <Compile Include="Services\IImport.cs" />
     <Compile Include="Services\Import.cs" />
     <Compile Include="Services\IProgressService.cs" />
+    <Compile Include="Services\IWPFtemplateService.cs" />
     <Compile Include="Services\WpfProgressbarProgressService.cs" />
+    <Compile Include="Services\WPFtemplateService.cs" />
     <Compile Include="TemplateImport.xaml.cs">
       <DependentUpon>TemplateImport.xaml</DependentUpon>
     </Compile>

@@ -79,17 +79,17 @@ namespace Powykonawcza.Services
                     var tokenValue = objects.Tokens[columnIdx];
                     switch (templateItem.Type)
                     {
-                        case "string":
-                        case "date":
+                        case SzablonItem.GeoType.String:
+                        case SzablonItem.GeoType.Date:
                             prop.SetValue(point, tokenValue.ToString(), null);
                             break;
-                        case "numeric":
+                        case SzablonItem.GeoType.Numeric:
                         {
                             var dv = decimal.Parse(tokenValue.ToString().Replace(',', '.'));
                             prop.SetValue(point, dv, null);
                             break;
                         }
-                        case "integer":
+                        case SzablonItem.GeoType.Integer:
                             prop.SetValue(point, int.Parse(tokenValue.ToString()), null);
                             break;
                     }

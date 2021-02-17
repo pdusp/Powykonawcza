@@ -91,10 +91,10 @@ namespace Powykonawcza
 
             try
             {
-                var tmpItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"TempImport.dat");
+                var tmpItems = JsonUtils.LoadJsonFile<List<SzablonItem>>(@"Template.dat");
                 if (tmpItems is null)
                 {
-                    MessageBox.Show("brak pliku TempImport.dat");
+                    MessageBox.Show("brak pliku Template.dat");
                     return;
                 }
 
@@ -153,9 +153,10 @@ namespace Powykonawcza
 
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
+        {   
+            // This will capture the Ctrl+O shortcut.
             if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.O)
-            ) // This will capture the Ctrl+O shortcut.
+            ) 
                 MenuItem_ClickOpen(null, null);
         }
 

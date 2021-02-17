@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Powykonawcza.DAL;
 using Powykonawcza.Model.Szablon;
+using Powykonawcza.Services;
 
 namespace Powykonawcza
 {
@@ -21,19 +22,19 @@ namespace Powykonawcza
         public SzablonyImportu()
         {
             InitializeComponent();
-            gr1.ItemsSource             =  PopulateSzablon();
+            gr1.ItemsSource = PopulateSzablon();
             GridItems.CollectionChanged += GridItems_CollectionChanged;
         }
 
-        public IEnumerable<SzablonItem> CurrentTemplate()
-        {
-            var rows        = GetDataGridRows(gr1);
-            var itemsSource = gr1.ItemsSource;
+        //public IEnumerable<SzablonItem> CurrentTemplate()
+        //{
+        //    var rows = GetDataGridRows(gr1);
+        //    var itemsSource = gr1.ItemsSource;
 
-            for (var i = 0; i < GridItems.Count; i++)
-                if (GridItems[i].Import)
-                    yield return GridItems[i];
-        }
+        //    for (var i = 0; i < GridItems.Count; i++)
+        //        if (GridItems[i].Import)
+        //            yield return GridItems[i];
+        //}
 
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
         {
@@ -49,21 +50,18 @@ namespace Powykonawcza
 
         private void clik_zapisz(object sender, RoutedEventArgs e)
         {
-            var rows        = GetDataGridRows(gr1);
+            var rows = GetDataGridRows(gr1);
             var itemsSource = gr1.ItemsSource;
-            //
-            foreach (var itm in GridItems)
-                if ((itm.Name == "point" || itm.Name == "x" || itm.Name == "y" || itm.Name == "h") &&
-                    itm.Import == false)
-                {
-                    MessageBox.Show("Pola pkt,X,Y,Z są zawsze wymagane do importu");
-                    return;
-                }
 
+            if (!Powykonawcza.Services.WPFtemplateService.CheckRequiredBeforeSave(GridItems))
+            {
+                MessageBox.Show("Pola Point,X,Y,Z są wymagane do importu");
+                return;
+            }
             //
             try
             {
-                SaveSzablon();
+                SaveTemplate();
                 MessageBox.Show("Zapis wykonany");
             }
             catch
@@ -74,6 +72,8 @@ namespace Powykonawcza
             btnzapisz.IsEnabled = false;
             Close();
         }
+
+
 
         private void CloseCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -115,22 +115,8 @@ namespace Powykonawcza
             var itm = (SzablonItem)item.SelectedCells[0].Item;
 
             //int lp=l.Find((x => x.nazwa.Contains(itm.nazwa))).;
-            for (var i = 0; i < GridItems.Count; i++)
-                if (GridItems[i].Name == itm.Name)
-                {
-                    if (i < GridItems.Count - 1)
-                    {
-                        var szp = GridItems[i + 1];
-                        var szk = GridItems[i];
-                        GridItems[i]     = szp;
-                        GridItems[i + 1] = szk;
-                        gr1.ItemsSource  = null;
-                        gr1.ItemsSource  = GridItems;
-                    }
 
-                    break;
-                }
-
+            gr1.ItemsSource = Powykonawcza.Services.WPFtemplateService.MoveItemDown(GridItems, itm);
             btnzapisz.IsEnabled = true;
         }
 
@@ -151,24 +137,12 @@ namespace Powykonawcza
             var itm = (SzablonItem)item.SelectedCells[0].Item;
 
             //int lp=l.Find((x => x.nazwa.Contains(itm.nazwa))).;
-            for (var i = 0; i < GridItems.Count; i++)
-                if (GridItems[i].Name == itm.Name)
-                {
-                    if (i > 0)
-                    {
-                        var szp = GridItems[i - 1];
-                        var szk = GridItems[i];
-                        GridItems[i]     = szp;
-                        GridItems[i - 1] = szk;
-                        gr1.ItemsSource  = null;
-                        gr1.ItemsSource  = GridItems;
-                    }
-
-                    break;
-                }
-
+            
+            gr1.ItemsSource =  Powykonawcza.Services.WPFtemplateService.MoveItemUp(GridItems, itm);
             btnzapisz.IsEnabled = true;
         }
+
+
 
         private ObservableCollection<SzablonItem> PopulateSzablon()
         {
@@ -176,37 +150,23 @@ namespace Powykonawcza
             //
             try
             {
-                var items = JsonUtils.LoadJsonFile<ObservableCollection<SzablonItem>>(@"TempImport.dat");
-                if (items is null || items.Count == 0) throw new ArgumentException("GridItems cannot be null");
-                GridItems = items;
-                return items;
+                return GridItems = Powykonawcza.Services.WPFtemplateService.TryLoadTemplateFromFile();
             }
             catch
             {
-                GridItems.Add(new SzablonItem("point", true, "numer Punktu", "string"));
-                GridItems.Add(new SzablonItem("x", true, "współrzędna X", "numeric"));
-                GridItems.Add(new SzablonItem("y", true, "współrzędna y", "numeric"));
-                GridItems.Add(new SzablonItem("h", true, "wysokość h", "numeric"));
-                GridItems.Add(new SzablonItem("date", false, "data pomiaru", "date"));
-                GridItems.Add(new SzablonItem("code", false, "", "string"));
-                GridItems.Add(new SzablonItem("mn", false, "", "string"));
-                GridItems.Add(new SzablonItem("mh", false, "", "numeric"));
-                GridItems.Add(new SzablonItem("mp", false, "", "numeric"));
-                GridItems.Add(new SzablonItem("e", false, "", "integer"));
-                GridItems.Add(new SzablonItem("sat", false, "", "integer"));
-                GridItems.Add(new SzablonItem("pdop", false, "", "numeric"));
-                GridItems.Add(new SzablonItem("heightPole", false, "", "numeric"));
-                GridItems.Add(new SzablonItem("type", false, "", "string"));
+                //return GridItems = Powykonawcza.Services.WPFtemplateService.PopulateDefaultTemplate();
+                var item = Powykonawcza.Services.WPFtemplateService.PopulateDefaultTemplate();
+                foreach (var i in item)
+                    GridItems.Add(i);
+                return GridItems;
             }
-
-            //
-            return GridItems;
         }
+         
 
-
-        private void SaveSzablon()
+        private void SaveTemplate()
         {
-            JsonUtils.SaveJson(@"TempImport.dat", GridItems);
+            // JsonUtils.SaveJson(@"Template.dat", GridItems);
+            TemplateOperation.SaveTemplate(GridItems);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

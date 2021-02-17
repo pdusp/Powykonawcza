@@ -1,84 +1,84 @@
 [
   {
-    "name": "point",
+    "name": "Point",
     "import": true,
     "other": "numer Punktu",
     "type": "string"
   },
   {
-    "name": "x",
+    "name": "X",
     "import": true,
     "other": "współrzędna X",
     "type": "numeric"
   },
   {
-    "name": "y",
+    "name": "Y",
     "import": true,
     "other": "współrzędna y",
     "type": "numeric"
   },
   {
-    "name": "h",
+    "name": "H",
     "import": true,
     "other": "wysokość h",
     "type": "numeric"
   },
   {
-    "name": "date",
+    "name": "Date",
     "import": false,
     "other": "data pomiaru",
     "type": "date"
   },
   {
-    "name": "code",
+    "name": "Code",
     "import": true,
     "other": "",
     "type": "string"
   },
   {
-    "name": "mn",
+    "name": "Mn",
     "import": false,
     "other": "",
     "type": "string"
   },
   {
-    "name": "mh",
+    "name": "Mh",
     "import": false,
     "other": "",
     "type": "numeric"
   },
   {
-    "name": "mp",
+    "name": "Mp",
     "import": false,
     "other": "",
     "type": "numeric"
   },
   {
-    "name": "e",
+    "name": "E",
     "import": false,
     "other": "",
     "type": "integer"
   },
   {
-    "name": "sat",
+    "name": "Sat",
     "import": false,
     "other": "",
     "type": "integer"
   },
   {
-    "name": "pdop",
+    "name": "Pdop",
     "import": false,
     "other": "",
     "type": "numeric"
   },
   {
-    "name": "heightPole",
+    "name": "HeightPole",
     "import": false,
     "other": "",
     "type": "numeric"
   },
   {
-    "name": "type",
+    "name": "Type",
     "import": false,
     "other": "",
     "type": "string"

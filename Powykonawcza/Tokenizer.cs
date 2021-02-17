@@ -14,7 +14,7 @@ namespace Powykonawcza
                 new DoubleTokenizer(NumerFlags.AllowLedingSpaces, ',', '.'),
                 new IntegerTokenizer(),
                 new StringNoSpaceTokenizer(),
-                new SingleQuoteStringTokenizer()
+                new SingleQuoteStringTokenizer() 
             };
             return candidates;
         }
