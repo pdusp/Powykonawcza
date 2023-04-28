@@ -93,7 +93,7 @@ namespace Powykonawcza.Services
                                 break;
                             }
                         case SzablonItem.GeoType.Integer:
-                            prop.SetValue(point, int.Parse(tokenValue.ToString()), null);
+                            prop.SetValue(point, (int)tokenValue, null);
                             break;
                     }
                 }
