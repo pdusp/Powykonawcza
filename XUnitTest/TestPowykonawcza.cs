@@ -13,7 +13,7 @@ using Xunit;
 
 namespace XUnitTest
 {
-    public class UnitTest1
+    public class TestPowykonawcza
     {
         public static string GetResourceByName(string resource)
         {

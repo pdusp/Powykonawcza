@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -31,6 +32,7 @@ namespace Powykonawcza.Services
         {
             int lineno = 0;
             lineno++;
+
             var expectedColumns = tmpItems.Count;
             var rtbLines = text.Split('\r', '\n')
                 .Where(a => !string.IsNullOrWhiteSpace(a))
@@ -67,12 +69,12 @@ namespace Powykonawcza.Services
 #if DEBUG
                 Thread.Sleep(20);
 #endif
-                var point   = new RegGeoPoint();
+                var point = new RegGeoPoint();
                 var objects = new Tokenizer().Parse(txtline);
                 for (var columnIdx = 0; columnIdx < objects.Tokens.Length; columnIdx++)
                 {
                     var templateItem = tmpItems[columnIdx];
-                    var prop         = props[columnIdx];
+                    var prop = props[columnIdx];
                     var propCanWrite = null != prop && prop.CanWrite;
                     if (!propCanWrite)
                         continue;
@@ -81,14 +83,15 @@ namespace Powykonawcza.Services
                     {
                         case SzablonItem.GeoType.String:
                         case SzablonItem.GeoType.Date:
-                            prop.SetValue(point, tokenValue.ToString(), null);
+                            prop.SetValue(point, tokenValue, null);
                             break;
                         case SzablonItem.GeoType.Numeric:
-                        {
-                            var dv = decimal.Parse(tokenValue.ToString().Replace(',', '.'));
-                            prop.SetValue(point, dv, null);
-                            break;
-                        }
+                            {
+                                var cultureInfo = CultureInfo.InvariantCulture;
+                                var dv = decimal.Parse(tokenValue.ToString().Replace(',', '.'), cultureInfo);
+                                prop.SetValue(point, dv, null);
+                                break;
+                            }
                         case SzablonItem.GeoType.Integer:
                             prop.SetValue(point, int.Parse(tokenValue.ToString()), null);
                             break;
